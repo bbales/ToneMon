@@ -37,6 +37,4 @@ class Knob {
     }
 }
 
-module.exports = {
-    Knob: Knob
-}
+export default Knob

@@ -1,17 +1,15 @@
-var _ = require('underscore')
-var Knob = require('./ui/knob').Knob
-var Canvas = require('./ui/canvas').Canvas
+import _ from 'lodash';
+import Knob from './ui/knob';
+import Canvas from './ui/canvas';
 
 var canvas = new Canvas('canvas');
 
-for (var i = 1; i < 5; i++) {
-    var k = new Knob(canvas.ctx);
+for (let i = 1; i < 5; i++) {
+    let k = new Knob(canvas.ctx);
     k.x = i * canvas.width() / 5;
     k.y = i * canvas.height() / 5;
     k.angle = Math.random() * 360;
     canvas.objs.push(k);
 }
 
-canvas.objs.map(function(e) {
-    e.draw.bind(e)();
-});
+canvas.objs.map(e => e.draw.bind(e)());
