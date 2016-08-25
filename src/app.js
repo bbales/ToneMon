@@ -8,8 +8,7 @@ for (let i = 1; i < 5; i++) {
     let k = new Knob(canvas.ctx);
     k.x = i * canvas.width() / 5;
     k.y = i * canvas.height() / 5;
-    k.angle = Math.random() * 360;
+    k.radius = 10 + 50 * Math.random();
+    k.angle = 0;
     canvas.objs.push(k);
 }
-
-canvas.objs.map(e => e.draw.bind(e)());

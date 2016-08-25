@@ -21,8 +21,8 @@ class Knob {
         this.ctx.beginPath();
         this.ctx.moveTo(this.x, this.y);
 
-        var rise = this.y + this.radius * Math.sin(this.angle * (Math.PI / 180));
-        var run = this.x + this.radius * Math.cos(this.angle * (Math.PI / 180));
+        var rise = this.y + this.radius * Math.sin((this.angle + 90) * (Math.PI / 180));
+        var run = this.x + this.radius * Math.cos((this.angle + 90) * (Math.PI / 180));
 
         this.ctx.lineTo(run, rise);
         this.ctx.stroke();
@@ -39,16 +39,16 @@ class Knob {
         return hypot <= this.radius + this.lineWidth;
     }
 
-    mouseupHandler(e) {
-        if (this.hitBox(e.pageX, e.pageY)) {
-            console.log('clicked in a knob')
+    mousemoveHandler(e) {
+        if (this.twistin) this.angle = Math.atan2(e.pageX - this.x, e.pageY - this.y) * (-180 / Math.PI);
+    }
 
-            // Calculate angle
-        }
+    mouseupHandler(e) {
+        this.twistin = false;
     }
 
     mousedownHandler(e) {
-
+        if (this.hitBox(e.pageX, e.pageY)) this.twistin = true;
     }
 }
 
