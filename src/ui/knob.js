@@ -6,12 +6,15 @@ class Knob {
         this.y = 0;
         this.angle = 270;
         this.radius = 50;
+        this.lineWidth = 5;
     }
 
     draw() {
         // Draw Circle
         this.ctx.beginPath();
         this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
+        this.ctx.lineWidth = this.lineWidth;
+        this.ctx.strokeStyle = '#F00';
         this.ctx.stroke();
 
         // Draw indicator
@@ -33,10 +36,20 @@ class Knob {
         // Calculate hypotneuse
         var hypot = Math.sqrt(deltax * deltax + deltay * deltay);
 
-        return hypot <= this.radius;
+        return hypot <= this.radius + this.lineWidth;
+    }
+
+    mouseupHandler(e) {
+        if (this.hitBox(e.pageX, e.pageY)) {
+            console.log('clicked in a knob')
+
+            // Calculate angle
+        }
+    }
+
+    mousedownHandler(e) {
+
     }
 }
 
-module.exports = {
-    Knob: Knob
-}
+export default Knob

@@ -30,6 +30,4 @@ class Canvas {
     }
 }
 
-module.exports = {
-    Canvas: Canvas
-}
+export default Canvas;
