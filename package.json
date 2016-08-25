@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "browserify ./src/js/app.js -o ./dist/app.js",
-    "watch": "watchify ./src/js/app.js -o ./dist/app.js -v"
+    "build": "browserify ./src/app.js -o ./dist/app.js",
+    "watch": "watchify ./src/app.js -o ./dist/app.js -v"
   },
   "repository": {
     "type": "git",
