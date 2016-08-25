@@ -1,4 +1,4 @@
-var _ = require('underscore')
+var _ = require('lodash')
 var Knob = require('./ui/knob').Knob
 var Canvas = require('./ui/canvas').Canvas
 

@@ -5,8 +5,8 @@ class Canvas {
 
         this.objs = [];
 
-        this.elem.addEventListener('mousedown', this.mousedownHandler.bind(this));
-        this.elem.addEventListener('mouseup', this.mouseuphandler.bind(this));
+        var capture = ['mouseup', 'mousedown'];
+        for (var e of capture) this.elem.addEventListener(e, this[e + 'Handler'].bind(this));
     }
 
     width() {
@@ -19,13 +19,13 @@ class Canvas {
 
     mousedownHandler(e) {
         this.objs.map(function(o) {
-            console.log(o.hitBox.bind(o, e.x, e.y)());
-        })
+            o.mousedownHandler.bind(o, e)()
+        });
     }
 
-    mupHandler(e) {
+    mouseupHandler(e) {
         this.objs.map(function(o) {
-            console.log(o.hitBox.bind(o, e.x, e.y)());
+            o.mouseupHandler.bind(o, e)();
         })
     }
 }

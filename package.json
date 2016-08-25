@@ -18,7 +18,7 @@
   "homepage": "https://github.com/bbales/ToneMon#readme",
   "dependencies": {
     "browserify": "^13.1.0",
-    "underscore": "^1.8.3",
+    "lodash": "^4.15.0",
     "watchify": "^3.7.0"
   }
 }
