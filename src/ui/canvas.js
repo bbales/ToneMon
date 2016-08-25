@@ -5,7 +5,8 @@ class Canvas {
 
         this.objs = [];
 
-        this.elem.addEventListener('click', this.clickHandler.bind(this));
+        this.elem.addEventListener('mousedown', this.mousedownHandler.bind(this));
+        this.elem.addEventListener('mouseup', this.mouseuphandler.bind(this));
     }
 
     width() {
@@ -16,7 +17,13 @@ class Canvas {
         return this.elem.height;
     }
 
-    clickHandler(e) {
+    mousedownHandler(e) {
+        this.objs.map(function(o) {
+            console.log(o.hitBox.bind(o, e.x, e.y)());
+        })
+    }
+
+    mupHandler(e) {
         this.objs.map(function(o) {
             console.log(o.hitBox.bind(o, e.x, e.y)());
         })
