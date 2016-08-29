@@ -1,12 +1,18 @@
-class Knob {
-    constructor(ctx) {
+import UIObj from './uiobj';
+import Calc from '../util/calc';
+
+class Knob extends UIObj {
+    constructor(canvas) {
+        super(canvas);
+
         this.otype = 'knob'
-        this.ctx = ctx;
         this.x = 0;
         this.y = 0;
         this.angle = 270;
         this.radius = 50;
         this.lineWidth = 5;
+
+        console.log('knob init')
     }
 
     draw() {
@@ -21,8 +27,8 @@ class Knob {
         this.ctx.beginPath();
         this.ctx.moveTo(this.x, this.y);
 
-        var rise = this.y + this.radius * Math.sin((this.angle + 90) * (Math.PI / 180));
-        var run = this.x + this.radius * Math.cos((this.angle + 90) * (Math.PI / 180));
+        var rise = this.y + this.radius * Math.sin(Calc.d2r(this.angle + 90));
+        var run = this.x + this.radius * Math.cos(Calc.d2r(this.angle + 90));
 
         this.ctx.lineTo(run, rise);
         this.ctx.stroke();
@@ -34,13 +40,13 @@ class Knob {
         var deltay = Math.abs(this.y - y);
 
         // Calculate hypotneuse
-        var hypot = Math.sqrt(deltax * deltax + deltay * deltay);
+        var hypot = Calc.hyp(deltax, deltay);
 
         return hypot <= this.radius + this.lineWidth;
     }
 
     mousemoveHandler(e) {
-        if (this.twistin) this.angle = Math.atan2(e.pageX - this.x, e.pageY - this.y) * (-180 / Math.PI);
+        if (this.twistin) this.angle = -1 * Calc.r2d(Math.atan2(e.pageX - this.x, e.pageY - this.y));
     }
 
     mouseupHandler(e) {

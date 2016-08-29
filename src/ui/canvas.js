@@ -2,6 +2,7 @@ class Canvas {
     constructor(id) {
         this.elem = document.getElementById(id);
         this.ctx = this.elem.getContext('2d');
+        // this.ctx.translate(0.5, 0.5);
 
         this.objs = [];
 
@@ -9,8 +10,11 @@ class Canvas {
         var capture = ['mouseup', 'mousedown', 'mousemove'];
         for (var eventName of capture) this.elem.addEventListener(eventName, this[eventName + 'Handler'].bind(this));
 
+        // Window mouseup
+        window.addEventListener('mouseup', this.mouseupHandler.bind(this));
+
         // Start draw loop
-        setInterval(this.redraw.bind(this), 1000 / 30);
+        setInterval(this.redraw.bind(this), 1000 / 24);
     }
 
     width() {
@@ -22,21 +26,15 @@ class Canvas {
     }
 
     mousedownHandler(e) {
-        this.objs.map(function(o) {
-            o.mousedownHandler.bind(o, e)()
-        });
+        this.objs.map(o => o.mousedownHandler.bind(o, e)());
     }
 
     mouseupHandler(e) {
-        this.objs.map(function(o) {
-            o.mouseupHandler.bind(o, e)();
-        });
+        this.objs.map(o => o.mouseupHandler.bind(o, e)());
     }
 
     mousemoveHandler(e) {
-        this.objs.map(function(o) {
-            o.mousemoveHandler.bind(o, e)();
-        });
+        this.objs.map(o => o.mousemoveHandler.bind(o, e)());
     }
 
     redraw() {

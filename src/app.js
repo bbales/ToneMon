@@ -1,14 +1,23 @@
 import _ from 'lodash';
+import Calc from './util/calc';
 import Knob from './ui/knob';
 import Canvas from './ui/canvas';
+import Voice from './audio/voice';
+import Keys from './ui/keys';
 
 var canvas = new Canvas('canvas');
+var keys = new Keys(canvas);
 
 for (let i = 1; i < 5; i++) {
-    let k = new Knob(canvas.ctx);
+    let k = new Knob(canvas);
     k.x = i * canvas.width() / 5;
     k.y = i * canvas.height() / 5;
     k.radius = 10 + 50 * Math.random();
     k.angle = 0;
-    canvas.objs.push(k);
 }
+
+console.log(canvas.objs)
+
+var actx = new window.AudioContext();
+var v = new Voice(actx);
+keys.attach(v);
