@@ -5,9 +5,16 @@ import Canvas from './ui/canvas';
 import Voice from './audio/voice';
 import Keys from './ui/keys';
 
+// UI
 var canvas = new Canvas('canvas');
 var keys = new Keys(canvas);
 
+// Audio
+var actx = new window.AudioContext();
+var v = new Voice(actx);
+keys.attach(v);
+
+// Generate some knobs for twistin
 for (let i = 1; i < 5; i++) {
     let k = new Knob(canvas);
     k.x = i * canvas.width() / 5;
@@ -15,9 +22,3 @@ for (let i = 1; i < 5; i++) {
     k.radius = 10 + 50 * Math.random();
     k.angle = 0;
 }
-
-console.log(canvas.objs)
-
-var actx = new window.AudioContext();
-var v = new Voice(actx);
-keys.attach(v);

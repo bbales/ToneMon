@@ -76,9 +76,7 @@ class Keys extends UIObj {
     }
 
     mouseupHandler(e) {
-        if (!this.hitBox(e.pageX, e.pageY)) return;
         this.playing = false;
-
         this.stopNote();
     }
 
