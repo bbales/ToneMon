@@ -1,4 +1,5 @@
 import UIObj from './uiobj';
+import Notes from '../audio/notes';
 
 class Keys extends UIObj {
     constructor(canvas) {
@@ -16,33 +17,11 @@ class Keys extends UIObj {
         this.width = 500;
         this.keyWidth = this.width / 12;
 
-        this._genNotes();
-    }
-
-    // Generate note frequency pairs, should only be run once
-    _genNotes() {
-        var a = Math.pow(2, 1 / 12);
-        var notes = ['a', 'as', 'b', 'c', 'cs', 'd', 'ds', 'e', 'f', 'fs', 'g', 'gs'];
-        // Generate 6 octaves
-        this.octaves = [];
-        for (var i = 0; i < 6; i++) {
-            // 12 notes per octave
-            var octave = [];
-            for (var j = 0; j < 12; j++) octave.push({
-                'note': notes[j],
-                'freq': step((i - 2) * 12 + j)
-            });
-            this.octaves.push(octave);
-        }
-
-        // Get frequency with reference to middle C
-        function step(n) {
-            return Math.round(440 * Math.pow(a, n));
-        }
+        this.octaves = Notes.all;
     }
 
     draw() {
-        var self = this;
+        let self = this;
         this.ctx.strokeStyle = '#0EE';
         this.ctx.lineWidth = this.lineWidth;
 
@@ -63,7 +42,7 @@ class Keys extends UIObj {
         if (!this.hitBox(e.pageX, e.pageY) || !this.playing) return;
 
         // Find out which key is being clicked
-        var note = this.octaves[this.octave][Math.floor((e.x - this.x) / this.keyWidth)];
+        let note = this.octaves[this.octave][Math.floor((e.x - this.x) / this.keyWidth)];
         note.active = true;
 
         this.playNote(note);
