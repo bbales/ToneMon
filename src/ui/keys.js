@@ -47,7 +47,7 @@ class Keys extends UIObj {
         this.ctx.lineWidth = this.lineWidth;
 
         this.octaves[this.octave].forEach(function(o, i) {
-            self.ctx.fillStyle = o.active ? '#022' : '#044';
+            self.ctx.fillStyle = o.active ? '#044' : (o.note.length > 1 ? '#022' : '#033');
             self.ctx.fillRect(self.x + i * self.keyWidth, self.y, self.keyWidth, self.keyWidth * 5);
             self.ctx.rect(self.x + i * self.keyWidth, self.y, self.keyWidth, self.keyWidth * 5);
             self.ctx.stroke();
