@@ -1,4 +1,5 @@
 import Str from '../util/str';
+import Notes from './notes';
 
 class Voice {
     constructor(actx) {
@@ -10,6 +11,9 @@ class Voice {
         this.vca = this.ctx.createGain();
         this.vca.gain.value = 0;
         this.osc.connect(this.vca);
+
+        this.octave = 0;
+        this.transpose = 0;
 
         this.vca.connect(this.ctx.destination);
         this.wave = 'triangle';
@@ -27,14 +31,17 @@ class Voice {
         return this;
     }
 
-    setNote(freq) {
+    setNote(note) {
+        // Transpose note
+        note = Notes.transpose(note, this.octave * 12 + this.transpose);
+        console.log(note)
         switch (this.freqEnvelope) {
             case 'tween':
                 // this.osc.frequency.value = freq;
-                this.osc.frequency.setTargetAtTime(freq, this.ctx.currentTime, this.freqEnvelopeTc);
+                this.osc.frequency.setTargetAtTime(note.freq, this.ctx.currentTime, this.freqEnvelopeTc);
                 break;
             default:
-                this.osc.frequency.setValueAtTime(freq, 0);
+                this.osc.frequency.setValueAtTime(note.freq, 0);
                 break;
         }
 
@@ -43,13 +50,45 @@ class Voice {
         return this;
     }
 
-    play(freq) {
-        this.setNote(freq);
+    // Control
+
+    play(note) {
+        this.setNote(note);
         this.vca.gain.value = 1;
     }
 
     stop() {
         this.vca.gain.value = 0;
+    }
+
+    // Full Octave Transpose
+
+    setOctave(oct) {
+        this.octave = _.clamp(oct, 0, 11);
+        return this;
+    }
+
+    upOctave() {
+        this.octave = _.clamp(this.octave + 1, 0, 11);
+    }
+
+    downOctave() {
+        this.octave = _.clamp(this.octave - 1, 0, 11);
+    }
+
+    // Transpose
+
+    setTranspose(delta) {
+        this.transpose = _.clamp(delta, -11, 12);
+        return this;
+    }
+
+    upTranspose() {
+        this.transpose = _.clamp(this.transpose + 1, -11, 12);
+    }
+
+    downTranspose() {
+        this.transpose = _.clamp(this.transpose - 1, -11, 12);
     }
 }
 

@@ -12,12 +12,12 @@ var keys = new Keys(canvas);
 // Audio
 var actx = new window.AudioContext();
 var v1 = new Voice(actx)
-v1.setWave('square').setFreqEnvelope('tween', 1);
+v1.setWave('square').setFreqEnvelope('tween', 0.001);
 keys.attach(v1);
 
 var actx2 = new window.AudioContext();
 var v2 = new Voice(actx2)
-v2.setWave('sawtooth').setFreqEnvelope('tween', 0.1);
+v2.setWave('sawtooth').setFreqEnvelope('tween', 0.1).setOctave(2);
 keys.attach(v2);
 
 // Generate some knobs for twistin

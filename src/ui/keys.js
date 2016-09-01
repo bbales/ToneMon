@@ -74,8 +74,7 @@ class Keys extends UIObj {
     }
 
     playNote(note) {
-        console.log(note.note)
-        this.voices.map(o => o.play.bind(o, note.freq)());
+        this.voices.map(o => o.play.bind(o, note)());
     }
 
     stopNote() {

@@ -54,7 +54,17 @@ class Notes {
     }
 
     static transpose(note, delta) {
+        var i = _.findIndex(_flatArray, {
+            'freq': note.freq
+        });
 
+        if (_.isUndefined(i)) throw ('Note does not exist');
+
+        i = i + delta;
+
+        if (i >= _flatArray.length - 1 || i < 0) throw ('Note out of bounds');
+
+        return _flatArray[i];
     }
 }
 
