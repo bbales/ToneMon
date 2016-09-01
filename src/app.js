@@ -19,17 +19,17 @@ keys.attach(v1)
 
 let k1 = new Knob(canvas, 'OSC1 Shape')
 k1.setPos(200, 150).setRadius(30).setMinMax(30, 200).setSnaps([{
-    text: 'SQU',
+    text: '◻',
     value: 'square'
 }, {
-    text: 'SIN',
+    text: '∿',
     default: true,
     value: 'sine'
 }, {
-    text: 'TRI',
+    text: '△',
     value: 'triangle'
 }, {
-    text: 'SAW',
+    text: '◺',
     value: 'sawtooth'
 }]).change(v1.setWave.bind(v1));
 
@@ -41,17 +41,17 @@ keys.attach(v2)
 
 let k2 = new Knob(canvas, 'OSC2 Shape')
 k2.setPos(400, 150).setRadius(30).setMinMax(30, 200).setSnaps([{
-    text: 'SQU',
+    text: '◻',
     value: 'square'
 }, {
-    text: 'SIN',
+    text: '∿',
     default: true,
     value: 'sine'
 }, {
-    text: 'TRI',
+    text: '△',
     value: 'triangle'
 }, {
-    text: 'SAW',
+    text: '◺',
     value: 'sawtooth'
 }]).change(v2.setWave.bind(v2));
 

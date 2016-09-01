@@ -50,7 +50,7 @@ export default class Knob extends UIObj {
         // Draw text
         if (_.isArray(this._snaps)) {
             this.ctx.font = '12px Arial'
-            this.ctx.fillStyle = 'black'
+            this.ctx.fillStyle = 'white'
             this.ctx.textAlign = 'center'
             for (var s of this._snaps) {
                 var safeAngle = Calc.d2r(((s.angle > 180) ? s.angle - 360 : s.angle) + 90)
