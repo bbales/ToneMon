@@ -2,7 +2,7 @@ import UIObj from './uiobj'
 import Calc from '../util/calc'
 
 export default class Knob extends UIObj {
-    constructor(canvas) {
+    constructor(canvas, title) {
         super(canvas)
 
         this.otype = 'knob'
@@ -15,6 +15,7 @@ export default class Knob extends UIObj {
         this._max = 360
         this._min = 0
 
+        this._title = title || ''
         this._changeFn = _.noop
     }
 
@@ -31,6 +32,7 @@ export default class Knob extends UIObj {
         this.ctx.lineWidth = this._lineWidth
         this.ctx.strokeStyle = '#F00'
         this.ctx.stroke()
+        this.ctx.closePath()
 
         // Draw indicator
         this.ctx.beginPath()
@@ -42,6 +44,8 @@ export default class Knob extends UIObj {
 
         this.ctx.lineTo(run, rise)
         this.ctx.stroke()
+        this.ctx.closePath()
+
 
         // Draw text
         if (_.isArray(this._snaps)) {
@@ -53,6 +57,9 @@ export default class Knob extends UIObj {
                 this.ctx.fillText(s.text, this._x + 1.5 * this._radius * Math.cos(safeAngle), this._y + 1.5 * this._radius * Math.sin(safeAngle))
             }
         }
+
+        // Draw title
+        this.ctx.fillText(this._title, this._x, this._y + this._radius * 2)
     }
 
     hitBox(x, y) {
@@ -90,14 +97,9 @@ export default class Knob extends UIObj {
         return this
     }
 
-    setPos(x, y) {
-        this._x = x
-        this._y = y
-        return this
-    }
-
     change(fn) {
         this._changeFn = fn
+        return this;
     }
 
     // Handlers
