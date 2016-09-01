@@ -14,6 +14,8 @@ class Knob extends UIObj {
 
         this._max = 360;
         this._min = 0;
+
+        this._changeFn = _.noop;
     }
 
     init() {
@@ -34,9 +36,9 @@ class Knob extends UIObj {
         this.ctx.beginPath();
         this.ctx.moveTo(this._x, this._y);
 
-        var rangle = Calc.d2r(this._angle + 90);
-        var rise = this._y + this._radius * Math.sin(rangle);
-        var run = this._x + this._radius * Math.cos(rangle);
+        var rAngle = Calc.d2r(this._angle + 90);
+        var rise = this._y + this._radius * Math.sin(rAngle);
+        var run = this._x + this._radius * Math.cos(rAngle);
 
         this.ctx.lineTo(run, rise);
         this.ctx.stroke();
@@ -59,9 +61,7 @@ class Knob extends UIObj {
         var deltay = Math.abs(this._y - y);
 
         // Calculate hypotneuse
-        var hypot = Calc.hyp(deltax, deltay);
-
-        return hypot <= (this._radius + this._lineWidth);
+        return Calc.hyp(deltax, deltay) <= (this._radius + this._lineWidth);
     }
 
     setSnaps(arr, showText) {
@@ -96,20 +96,49 @@ class Knob extends UIObj {
         return this;
     }
 
+    change(fn) {
+        this._changeFn = fn;
+    }
+
     // Handlers
 
     mousemoveHandler(e) {
         if (!this.twistin) return;
         if (e) this._angle = -1 * Calc.r2d(Math.atan2(e.pageX - this._x, e.pageY - this._y));
-        else this._angle = (this._snaps) ? this._snaps[0].angle : this._min;
+        else {
+            if (this._snaps) {
+                // Check if a default has been set
+                var dflt = _.find(this._snaps, {
+                    default: true
+                });
+
+                // Set the default or first in snaps
+                this._angle = (dflt) ? dflt.angle : this._snaps[0].angle;
+            } else this.angle = this._min;
+        }
 
         // If snaps
         if (_.isArray(this._snaps)) {
-            var closest = this._snaps[0].angle;
+            var closest = this._snaps[0];
             for (var a of this._snaps) {
-                if (Math.abs(a.angle - this.angle) < Math.abs(closest - this.angle)) closest = a.angle;
+                if (Math.abs(a.angle - this.angle) < Math.abs(closest.angle - this.angle)) closest = a;
             }
-            this.angle = closest;
+
+            // If this snap is not currently active
+            if (!closest.active) {
+                // Run its setter
+                if (_.isFunction(closest.set)) closest.set();
+                else this._changeFn(closest.value);
+
+                // Reset all active states
+                for (var b of this._snaps) b.active = false;
+
+                // Set this one to active
+                closest.active = true;
+            }
+
+            // Set the angle
+            this.angle = closest.angle;
             return;
         }
 

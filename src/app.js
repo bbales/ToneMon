@@ -12,28 +12,29 @@ var keys = new Keys(canvas);
 // Audio
 var actx = new window.AudioContext();
 var v1 = new Voice(actx)
-v1.setWave('square').setFreqEnvelope('tween', 0.001);
+v1.setWave('sine').setFreqEnvelope('tween', 0.001);
 keys.attach(v1);
+
+let k1 = new Knob(canvas, 'OSC1 Shape');
+k1.setPos(200, 150).setRadius(30).setMinMax(30, 200).setSnaps([{
+    text: 'SQU',
+    value: 'square'
+}, {
+    text: 'SIN',
+    default: true,
+    value: 'sine'
+}, {
+    text: 'TRI',
+    value: 'triangle'
+}, {
+    text: 'SAW',
+    value: 'sawtooth'
+}]).change(function(v) {
+    v1.setWave(v);
+});
+
 
 var actx2 = new window.AudioContext();
 var v2 = new Voice(actx2)
 v2.setWave('sawtooth').setFreqEnvelope('tween', 0.1).setOctave(2);
-keys.attach(v2);
-
-// // Generate some knobs for twistin
-// for (let i = 1; i < 5; i++) {
-//     let k = new Knob(canvas);
-//     k.x = i * canvas.width() / 5;
-//     k.y = i * canvas.height() / 5;
-//     k.radius = 10 + 50 * Math.random();
-//     k.angle = 0;
-// }
-
-let k1 = new Knob(canvas);
-k1.setPos(200, 150).setMinMax(30, 80).setSnaps([{
-    text: 'SQU'
-}, {
-    text: 'SIN'
-}, {
-    text: 'TRI'
-}]);
+// keys.attach(v2);

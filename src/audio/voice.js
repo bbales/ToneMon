@@ -22,6 +22,7 @@ class Voice {
     setWave(wave) {
         if (!_.includes(['sine', 'square', 'sawtooth', 'triangle', 'custom'], wave)) throw ('Voice (' + this.id + '): Invalid waveform');
         this.wave = wave;
+        console.log(wave)
         return this;
     }
 
