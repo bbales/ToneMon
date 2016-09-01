@@ -20,11 +20,20 @@ var v2 = new Voice(actx2)
 v2.setWave('sawtooth').setFreqEnvelope('tween', 0.1).setOctave(2);
 keys.attach(v2);
 
-// Generate some knobs for twistin
-for (let i = 1; i < 5; i++) {
-    let k = new Knob(canvas);
-    k.x = i * canvas.width() / 5;
-    k.y = i * canvas.height() / 5;
-    k.radius = 10 + 50 * Math.random();
-    k.angle = 0;
-}
+// // Generate some knobs for twistin
+// for (let i = 1; i < 5; i++) {
+//     let k = new Knob(canvas);
+//     k.x = i * canvas.width() / 5;
+//     k.y = i * canvas.height() / 5;
+//     k.radius = 10 + 50 * Math.random();
+//     k.angle = 0;
+// }
+
+let k1 = new Knob(canvas);
+k1.setPos(200, 150).setMinMax(30, 80).setSnaps([{
+    text: 'SQU'
+}, {
+    text: 'SIN'
+}, {
+    text: 'TRI'
+}]);

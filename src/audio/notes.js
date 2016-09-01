@@ -54,16 +54,21 @@ class Notes {
     }
 
     static transpose(note, delta) {
+        // Find note in flattened array
         var i = _.findIndex(_flatArray, {
             'freq': note.freq
         });
 
+        // Ensure index exists
         if (_.isUndefined(i)) throw ('Note does not exist');
 
+        // Calculate new index
         i = i + delta;
 
+        // Index error
         if (i >= _flatArray.length - 1 || i < 0) throw ('Note out of bounds');
 
+        // Return the transposed note
         return _flatArray[i];
     }
 }

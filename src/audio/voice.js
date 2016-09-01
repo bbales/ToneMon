@@ -32,9 +32,13 @@ class Voice {
     }
 
     setNote(note) {
+        // Update waveform
+        if (this.osc.type !== this.wave) this.osc.type = this.wave;
+
         // Transpose note
         note = Notes.transpose(note, this.octave * 12 + this.transpose);
-        console.log(note)
+
+        // Set based on frequency envelope
         switch (this.freqEnvelope) {
             case 'tween':
                 // this.osc.frequency.value = freq;
@@ -42,10 +46,7 @@ class Voice {
                 break;
             default:
                 this.osc.frequency.setValueAtTime(note.freq, 0);
-                break;
         }
-
-        if (this.osc.type !== this.wave) this.osc.type = this.wave;
 
         return this;
     }

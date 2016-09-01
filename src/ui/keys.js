@@ -34,11 +34,7 @@ class Keys extends UIObj {
     }
 
     mousemoveHandler(e) {
-        // Reset keys active states
-        this.octaves[this.octave].forEach(function(o) {
-            o.active = false;
-        });
-
+        this.resetKeys();
         if (!this.hitBox(e.pageX, e.pageY) || !this.playing) return;
 
         // Find out which key is being clicked
@@ -56,7 +52,15 @@ class Keys extends UIObj {
 
     mouseupHandler(e) {
         this.playing = false;
+        this.resetKeys();
         this.stopNote();
+    }
+
+    resetKeys() {
+        // Reset keys active states
+        this.octaves[this.octave].forEach(function(o) {
+            o.active = false;
+        });
     }
 
     hitBox(x, y) {

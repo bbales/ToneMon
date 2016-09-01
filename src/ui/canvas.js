@@ -2,7 +2,7 @@ class Canvas {
     constructor(id) {
         this.elem = document.getElementById(id);
         this.ctx = this.elem.getContext('2d');
-        // this.ctx.translate(0.5, 0.5);
+        this.ctx.translate(0.5, 0.5);
 
         this.objs = [];
 

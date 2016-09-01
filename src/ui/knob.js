@@ -6,47 +6,116 @@ class Knob extends UIObj {
         super(canvas);
 
         this.otype = 'knob'
-        this.x = 0;
-        this.y = 0;
-        this.angle = 270;
-        this.radius = 50;
-        this.lineWidth = 5;
+        this._x = 0;
+        this._y = 0;
+        this._angle = 270;
+        this._radius = 50;
+        this._lineWidth = 5;
 
-        console.log('knob init')
+        this._max = 360;
+        this._min = 0;
+    }
+
+    init() {
+        this.mousedownHandler();
+        this.mousemoveHandler();
+        this.mouseupHandler();
     }
 
     draw() {
         // Draw Circle
         this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
-        this.ctx.lineWidth = this.lineWidth;
+        this.ctx.arc(this._x, this._y, this._radius, 0, 2 * Math.PI);
+        this.ctx.lineWidth = this._lineWidth;
         this.ctx.strokeStyle = '#F00';
         this.ctx.stroke();
 
         // Draw indicator
         this.ctx.beginPath();
-        this.ctx.moveTo(this.x, this.y);
+        this.ctx.moveTo(this._x, this._y);
 
-        var rise = this.y + this.radius * Math.sin(Calc.d2r(this.angle + 90));
-        var run = this.x + this.radius * Math.cos(Calc.d2r(this.angle + 90));
+        var rangle = Calc.d2r(this._angle + 90);
+        var rise = this._y + this._radius * Math.sin(rangle);
+        var run = this._x + this._radius * Math.cos(rangle);
 
         this.ctx.lineTo(run, rise);
         this.ctx.stroke();
+
+        // Draw text
+        if (_.isArray(this._snaps)) {
+            this.ctx.font = '12px Arial';
+            this.ctx.fillStyle = 'black';
+            this.ctx.textAlign = 'center';
+            for (var s of this._snaps) {
+                var safeAngle = Calc.d2r(((s.angle > 180) ? s.angle - 360 : s.angle) + 90);
+                this.ctx.fillText(s.text, this._x + 1.5 * this._radius * Math.cos(safeAngle), this._y + 1.5 * this._radius * Math.sin(safeAngle));
+            }
+        }
     }
 
     hitBox(x, y) {
-        // Check if the coord is within the radius of the Circle
-        var deltax = Math.abs(this.x - x);
-        var deltay = Math.abs(this.y - y);
+        // Check if the coord is within the _radius of the Circle
+        var deltax = Math.abs(this._x - x);
+        var deltay = Math.abs(this._y - y);
 
         // Calculate hypotneuse
         var hypot = Calc.hyp(deltax, deltay);
 
-        return hypot <= this.radius + this.lineWidth;
+        return hypot <= (this._radius + this._lineWidth);
     }
 
+    setSnaps(arr, showText) {
+        if (!_.isArray(arr)) throw ('setSnaps argument must be an array');
+        this._snapsShowText = showText || true;
+        this._snaps = arr;
+
+        var self = this;
+        if (!this._snaps[0].angle) this._snaps.forEach(function(s, i) {
+            s.angle = self._min + i * (self._max - self._min) / self._snaps.length;
+        });
+
+        this.init();
+        return this;
+    }
+
+    setMinMax(min, max) {
+        this._min = min;
+        this._max = max;
+        this.init();
+        return this;
+    }
+
+    setRadius(rad) {
+        this._radius = rad;
+        return this;
+    }
+
+    setPos(x, y) {
+        this._x = x;
+        this._y = y;
+        return this;
+    }
+
+    // Handlers
+
     mousemoveHandler(e) {
-        if (this.twistin) this.angle = -1 * Calc.r2d(Math.atan2(e.pageX - this.x, e.pageY - this.y));
+        if (!this.twistin) return;
+        if (e) this._angle = -1 * Calc.r2d(Math.atan2(e.pageX - this._x, e.pageY - this._y));
+        else this._angle = (this._snaps) ? this._snaps[0].angle : this._min;
+
+        // If snaps
+        if (_.isArray(this._snaps)) {
+            var closest = this._snaps[0].angle;
+            for (var a of this._snaps) {
+                if (Math.abs(a.angle - this.angle) < Math.abs(closest - this.angle)) closest = a.angle;
+            }
+            this.angle = closest;
+            return;
+        }
+
+        // Snap angle
+        if (this._min && this.angle < this._min) this.angle = this._min;
+        else if (this._max && this.angle > this._max) this.angle = this._max;
     }
 
     mouseupHandler(e) {
@@ -54,7 +123,17 @@ class Knob extends UIObj {
     }
 
     mousedownHandler(e) {
-        if (this.hitBox(e.pageX, e.pageY)) this.twistin = true;
+        if (!e || this.hitBox(e.pageX, e.pageY)) this.twistin = true;
+    }
+
+    // More understandable angle
+
+    get angle() {
+        return (this._angle < 0) ? 360 + this._angle : this._angle;
+    }
+
+    set angle(a) {
+        this._angle = (a > 180) ? a - 360 : a;
     }
 }
 
