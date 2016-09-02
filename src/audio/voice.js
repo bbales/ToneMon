@@ -17,6 +17,9 @@ export default class Voice {
 
         this._attack = 1;
         this._release = 1;
+        this._note = {
+            freq: -1
+        }
 
         this.vca.connect(this.ctx.destination)
         this.wave = 'triangle'
@@ -38,6 +41,8 @@ export default class Voice {
         // Update waveform
         if (this.osc.type !== this.wave) this.osc.type = this.wave
 
+        this._note = _.clone(note);
+
         // Transpose note
         note = Notes.transpose(note, this.octave * 12 + this.transpose)
 
@@ -56,19 +61,24 @@ export default class Voice {
     // Control
 
     play(note) {
-        if (this._playing) return
+        if (this._playing && note.freq == this._note.freq) return
         this._playing = true;
         this.setNote(note)
 
+        // Attack
         this.vca.gain.cancelScheduledValues(this.ctx.currentTime - 1);
-        this.vca.gain.setValueAtTime(0.01, this.ctx.currentTime)
-        this.vca.gain.linearRampToValueAtTime(1, this.ctx.currentTime + this._attack)
+        this.vca.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + 0.001)
+        this.vca.gain.linearRampToValueAtTime(1, this.ctx.currentTime + 0.001 + this._attack)
     }
 
     stop() {
+        if (!this._playing) return
         this._playing = false
+
+        // Release
         this.vca.gain.cancelScheduledValues(this.ctx.currentTime - 1);
-        this.vca.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + this._release)
+        this.vca.gain.setValueAtTime(this.vca.gain.value, this.ctx.currentTime)
+        this.vca.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + this._release)
     }
 
     // Full Octave Transpose
