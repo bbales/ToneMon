@@ -4,8 +4,8 @@ import Calc from '../util/calc'
 export default class Knob extends UIObj {
     constructor(canvas, title) {
         super(canvas)
-
         this.otype = 'knob'
+
         this._x = 0
         this._y = 0
         this._angle = 270
@@ -14,9 +14,9 @@ export default class Knob extends UIObj {
 
         this._max = 360
         this._min = 0
+        this._changeFn = _.noop
 
         this._title = title || ''
-        this._changeFn = _.noop
     }
 
     init() {

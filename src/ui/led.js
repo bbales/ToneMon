@@ -3,6 +3,7 @@ import UIObj from './uiobj'
 export default class Led extends UIObj {
     constructor(canvas, title) {
         super(canvas)
+        this.otype = 'led'
 
         this._color1 = '#d432d4';
         this._color2 = '#ffbbf9';

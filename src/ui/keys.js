@@ -4,8 +4,8 @@ import Notes from '../audio/notes'
 export default class Keys extends UIObj {
     constructor(canvas) {
         super(canvas)
-
         this.otype = 'keys'
+
         this.voices = []
         this.octave = 3
         this.lineWidth = 1

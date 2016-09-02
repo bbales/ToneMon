@@ -15,6 +15,9 @@ export default class Voice {
         this.octave = 0
         this.transpose = 0
 
+        this._attack = 1;
+        this._release = 1;
+
         this.vca.connect(this.ctx.destination)
         this.wave = 'triangle'
     }
@@ -54,11 +57,15 @@ export default class Voice {
 
     play(note) {
         this.setNote(note)
-        this.vca.gain.value = 1
+
+        this.vca.gain.cancelScheduledValues(this.ctx.currentTime - 1);
+        this.vca.gain.setValueAtTime(0.01, this.ctx.currentTime)
+        this.vca.gain.linearRampToValueAtTime(1, this.ctx.currentTime + this._attack)
     }
 
     stop() {
-        this.vca.gain.value = 0
+        this.vca.gain.cancelScheduledValues(this.ctx.currentTime - 1);
+        this.vca.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + this._release)
     }
 
     // Full Octave Transpose
@@ -89,5 +96,15 @@ export default class Voice {
 
     downTranspose() {
         this.transpose = _.clamp(this.transpose - 1, -11, 12)
+    }
+
+    // Attack and release
+
+    setAttack(t) {
+        this._attack = 1;
+    }
+
+    setRelease(t) {
+        this._release = 1;
     }
 }
