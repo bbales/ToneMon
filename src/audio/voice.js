@@ -56,6 +56,8 @@ export default class Voice {
     // Control
 
     play(note) {
+        if (this._playing) return
+        this._playing = true;
         this.setNote(note)
 
         this.vca.gain.cancelScheduledValues(this.ctx.currentTime - 1);
@@ -64,6 +66,7 @@ export default class Voice {
     }
 
     stop() {
+        this._playing = false
         this.vca.gain.cancelScheduledValues(this.ctx.currentTime - 1);
         this.vca.gain.linearRampToValueAtTime(0.01, this.ctx.currentTime + this._release)
     }
