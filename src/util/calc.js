@@ -18,4 +18,19 @@ export default class Calc {
     static hyp(opp, adj) {
         return Math.sqrt(opp * opp + adj * adj)
     }
+
+    // Calculate event relative x and y
+    static rx(e) {
+        return e.pageX - e.target.offsetLeft - e.target.offsetParent.offsetLeft;
+    }
+
+    static ry(e) {
+        return e.pageY - e.target.offsetTop - e.target.offsetParent.offsetTop;
+    }
+
+    static addOffsetCoord(e) {
+        e.rx = this.rx(e);
+        e.ry = this.ry(e);
+        return e;
+    }
 }

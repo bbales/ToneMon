@@ -133,7 +133,7 @@ export default class Knob extends UIObj {
 
     mousemoveHandler(e) {
         if (!this.twistin) return
-        if (e) this._angle = -1 * Calc.r2d(Math.atan2(e.pageX - this._x, e.pageY - this._y))
+        if (e) this._angle = -1 * Calc.r2d(Math.atan2(e.rx - this._x, e.ry - this._y))
         else {
             if (this._snaps) {
                 // Check if a default has been set
@@ -183,7 +183,7 @@ export default class Knob extends UIObj {
     }
 
     mousedownHandler(e) {
-        if (!e || this.hitBox(e.pageX, e.pageY)) this.twistin = true
+        if (!e || this.hitBox(e.rx, e.ry)) this.twistin = true
     }
 
     // Property for a more understandable angle

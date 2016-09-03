@@ -1,3 +1,5 @@
+import Calc from '../util/calc'
+
 export default class Canvas {
     constructor(id) {
         this.elem = document.getElementById(id)
@@ -26,15 +28,15 @@ export default class Canvas {
     }
 
     mousedownHandler(e) {
-        this.objs.map(o => o.mousedownHandler.bind(o, e)())
+        this.objs.map(o => o.mousedownHandler.bind(o, Calc.addOffsetCoord(e))())
     }
 
     mouseupHandler(e) {
-        this.objs.map(o => o.mouseupHandler.bind(o, e)())
+        this.objs.map(o => o.mouseupHandler.bind(o, Calc.addOffsetCoord(e))())
     }
 
     mousemoveHandler(e) {
-        this.objs.map(o => o.mousemoveHandler.bind(o, e)())
+        this.objs.map(o => o.mousemoveHandler.bind(o, Calc.addOffsetCoord(e))())
     }
 
     redraw() {

@@ -10,12 +10,17 @@ Currently the only app level dependency is [lodash](https://lodash.com/), which 
 
 #### Build-level Dependencies
 
+Node.js + npm are required to build this project.
+
 This project uses [WebPack](https://webpack.github.io/) to build/compile ES6 javascript.
 
 ##### Build Instructions
 
-Make sure to install the dependencies through npm before building.
+Make sure to install the dependencies through npm before building:
+`npm install`
 
-To build: `npm run build`
+To build:
+`npm run build`
 
-For development (create a server on localhost): `npm run watch`
+For development (create a server on localhost):
+`npm run watch`

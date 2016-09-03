@@ -37,17 +37,17 @@ export default class Keys extends UIObj {
 
     mousemoveHandler(e) {
         this.resetKeys()
-        if (!this.hitBox(e.pageX, e.pageY) || !this.playing) return
+        if (!this.hitBox(e.rx, e.ry) || !this.playing) return
 
         // Find out which key is being clicked
-        let note = this.octaves[this.octave][Math.floor((e.x - this.x) / this.keyWidth)]
+        let note = this.octaves[this.octave][Math.floor((e.rx - this.x) / this.keyWidth)]
         note.active = true
 
         this.playNote(note)
     }
 
     mousedownHandler(e) {
-        if (!this.hitBox(e.pageX, e.pageY)) return
+        if (!this.hitBox(e.rx, e.ry)) return
         this.playing = true
         this.mousemoveHandler(e)
     }
