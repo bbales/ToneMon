@@ -54,18 +54,19 @@ export default class Knob extends UIObj {
             for (var s of this._snaps) {
                 this.ctx.fillStyle = s.active ? '#83d8ff' : 'white'
                 this.ctx.shadowBlur = s.active ? 10 : 0
-                var safeAngle = Calc.d2r(((s.angle > 180) ? s.angle - 360 : s.angle) + 90)
+                var safeAngle = Calc.nd2r(s.angle)
                 this.ctx.fillText(s.text, this._x + (16 + this._radius) * Math.cos(safeAngle), this._y + (16 + this._radius) * Math.sin(safeAngle))
             }
             this.ctx.shadowBlur = 0
         } else {
 
             // If not a snapping knob, show tracer
-            let safeMin = Calc.d2r(((this._min > 180) ? this._min - 360 : this._min) + 90)
-            let safeCurrent = Calc.d2r(((this._angle > 180) ? this._angle - 360 : this._angle) + 90)
-            let safeMax = Calc.d2r(((this._max > 180) ? this._max - 360 : this._max) + 90)
+            let safeMin = Calc.nd2r(this._min)
+            let safeCurrent = Calc.nd2r(this._angle)
+            let safeMax = Calc.nd2r(this._max)
             this.ctx.lineWidth = this._lineWidth
 
+            // Draw active arc
             this.ctx.beginPath()
             this.ctx.shadowBlur = 10
             this.ctx.shadowColor = '#83d8ff';
@@ -75,6 +76,7 @@ export default class Knob extends UIObj {
             this.ctx.closePath()
             this.ctx.shadowBlur = 0
 
+            // Draw remaining inactive arc
             this.ctx.beginPath()
             this.ctx.arc(this._x, this._y, this._radius + 5, safeCurrent, safeMax)
             this.ctx.strokeStyle = '#19344c'
