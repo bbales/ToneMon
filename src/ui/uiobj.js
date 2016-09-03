@@ -1,8 +1,8 @@
-import Str from '../util/str'
+import Tool from '../util/tool'
 
 export default class UIObj {
     constructor(canvas) {
-        this.id = Str.id()
+        this.id = Tool.id()
         this.canvas = canvas
         this.ctx = canvas.ctx
         this.canvas.objs.push(this)
@@ -13,6 +13,8 @@ export default class UIObj {
             'id': this.id
         })
     }
+
+    // Empty handler methods
 
     mousemoveHandler() {}
     mouseupHandler() {}

@@ -17,7 +17,7 @@ var v1 = new Voice(actx)
 v1.setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(2)
 keys.attach(v1)
 
-let k1 = new Knob(canvas, 'OSC1 Shape')
+var k1 = new Knob(canvas, 'OSC1 Shape')
 k1.setPos(200, 150).setRadius(20).setMinMax(30, 200).setSnaps([{
     text: '◻',
     value: 'square'
@@ -33,12 +33,12 @@ k1.setPos(200, 150).setRadius(20).setMinMax(30, 200).setSnaps([{
     value: 'sawtooth'
 }]).change(v1.setWave.bind(v1));
 
-let osc1_atk = new Knob(canvas, 'OSC1 Attack')
+var osc1_atk = new Knob(canvas, 'OSC1 Attack')
 osc1_atk.setPos(300, 150).setRadius(20).setMinMax(30, 330).change(function(p) {
     v1.setAttack(p * 4)
 });
 
-let osc1_rel = new Knob(canvas, 'OSC1 Release')
+var osc1_rel = new Knob(canvas, 'OSC1 Release')
 osc1_rel.setPos(400, 150).setRadius(20).setMinMax(30, 330).change(function(p) {
     v1.setRelease(p * 4)
 });

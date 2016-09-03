@@ -1,5 +1,5 @@
-let _noteArray;
-let _flatArray;
+var _noteArray;
+var _flatArray;
 
 export default class Notes {
 
@@ -17,26 +17,22 @@ export default class Notes {
             num = num || 6
 
             // Lettered notes
-            let notes = ['a', 'as', 'b', 'c', 'cs', 'd', 'ds', 'e', 'f', 'fs', 'g', 'gs']
+            var notes = ['a', 'as', 'b', 'c', 'cs', 'd', 'ds', 'e', 'f', 'fs', 'g', 'gs']
 
             // 'a' value for formula
-            let a = Math.pow(2, 1 / 12)
+            var a = Math.pow(2, 1 / 12)
 
-            // Generate 6 octaves
-            let octaves = []
+            // Generate [num] octaves
+            for (var octaves = []; octaves.push([]) < num;);
 
-            for (let i = 0; i < num; i++) {
-                let octave = []
-
-                // Push notes into octave
-                for (let j = 0; j < 12; j++) octave.push({
+            // Generate notes in each octave
+            octaves.forEach(function(octave, i) {
+                for (var j = 0; j < 12; j++) octave.push({
                     'note': notes[j],
                     'freq': step((i - num / 2) * 12 + j)
-                });
+                })
+            })
 
-                // Push octave into octaves
-                octaves.push(octave)
-            }
 
             return octaves
 

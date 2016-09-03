@@ -3,13 +3,9 @@ import UIObj from './uiobj'
 export default class Led extends UIObj {
     constructor(canvas, title) {
         super(canvas)
-        this.otype = 'led'
 
-        this._color1 = '#d432d4';
-        this._color2 = '#ffbbf9';
-
-        this._colorOff1 = '#212121';
-        this._colorOff2 = '#5a5a5a';
+        // Set to default
+        this.setColor();
     }
 
     draw() {
@@ -27,17 +23,14 @@ export default class Led extends UIObj {
         this.ctx.shadowOffsetX = 0
         this.ctx.shadowOffsetY = 0
         this.ctx.shadowBlur = 15
-        var grd = this.ctx.createRadialGradient(this._x, this._y, 2, this._x + 2, this._y + 2, 8);
-        if (!this._on) {
-            grd.addColorStop(1, this._color1);
-            grd.addColorStop(0, this._color2);
-            this.ctx.shadowColor = this._color1;
-        } else {
-            grd.addColorStop(1, this._colorOff1);
-            grd.addColorStop(0, this._colorOff2);
-            this.ctx.shadowColor = this._colorOff2;
-        }
+
+        // Create glow
+        let grd = this.ctx.createRadialGradient(this._x, this._y, 2, this._x + 2, this._y + 2, 8);
+        grd.addColorStop(1, this._on ? '#212121' : this._color1);
+        grd.addColorStop(0, this._on ? '#5a5a5a' : this._color2);
+        this.ctx.shadowColor = this._on ? '#5a5a5a' : this._color1;
         this.ctx.fillStyle = grd;
+
         this.ctx.beginPath();
         this.ctx.arc(this._x, this._y, 8, 0, 2 * Math.PI);
         this.ctx.fill();
@@ -49,10 +42,6 @@ export default class Led extends UIObj {
 
     setColor(color) {
         switch (color) {
-            case 'red':
-                this._color1 = 'red';
-                this._color2 = '#ff8787';
-                break;
             case 'green':
                 this._color1 = 'green';
                 this._color2 = '#c5ffb7';
@@ -68,6 +57,10 @@ export default class Led extends UIObj {
             case 'voilet':
                 this._color1 = '#d432d4';
                 this._color2 = '#ffbbf9';
+                break;
+            default: // 'red'
+                this._color1 = 'red';
+                this._color2 = '#ff8787';
                 break;
         }
         return this;

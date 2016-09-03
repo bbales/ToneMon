@@ -1,9 +1,9 @@
-import Str from '../util/str'
+import Tool from '../util/tool'
 import Notes from './notes'
 
 export default class Voice {
     constructor(actx) {
-        this.id = Str.id()
+        this.id = Tool.id()
 
         // AudioContext
         this.ctx = actx
@@ -16,6 +16,7 @@ export default class Voice {
         this.vca = this.ctx.createGain()
         this.vca.gain.value = 0
         this.osc.connect(this.vca)
+        this.vca.connect(this.ctx.destination)
 
         // Octave and _transpose properties
         this._octave = 0
@@ -26,8 +27,6 @@ export default class Voice {
         this._note = {
             freq: -1
         }
-
-        this.vca.connect(this.ctx.destination)
     }
 
     setWave(wave) {
@@ -66,10 +65,9 @@ export default class Voice {
 
     // Control
 
-    play(note) {
-        if (this._playing && note.freq == this._note.freq) return
+    play() {
+        if (this._playing) return
         this._playing = true;
-        this.setNote(note)
 
         // Attack
         this.vca.gain.cancelScheduledValues(this.ctx.currentTime - 1);

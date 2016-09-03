@@ -4,7 +4,6 @@ import Calc from '../util/calc'
 export default class Knob extends UIObj {
     constructor(canvas, title) {
         super(canvas)
-        this.otype = 'knob'
 
         this._x = 0
         this._y = 0
@@ -38,9 +37,9 @@ export default class Knob extends UIObj {
         this.ctx.beginPath()
         this.ctx.moveTo(this._x, this._y)
 
-        var rAngle = Calc.d2r(this._angle + 90)
-        var rise = this._y + this._radius * Math.sin(rAngle)
-        var run = this._x + this._radius * Math.cos(rAngle)
+        let rAngle = Calc.d2r(this._angle + 90)
+        let rise = this._y + this._radius * Math.sin(rAngle)
+        let run = this._x + this._radius * Math.cos(rAngle)
 
         this.ctx.lineTo(run, rise)
         this.ctx.stroke()
@@ -54,7 +53,7 @@ export default class Knob extends UIObj {
             for (var s of this._snaps) {
                 this.ctx.fillStyle = s.active ? '#83d8ff' : 'white'
                 this.ctx.shadowBlur = s.active ? 10 : 0
-                var safeAngle = Calc.nd2r(s.angle)
+                let safeAngle = Calc.nd2r(s.angle)
                 this.ctx.fillText(s.text, this._x + (16 + this._radius) * Math.cos(safeAngle), this._y + (16 + this._radius) * Math.sin(safeAngle))
             }
             this.ctx.shadowBlur = 0
@@ -91,8 +90,8 @@ export default class Knob extends UIObj {
 
     hitBox(x, y) {
         // Check if the coord is within the _radius of the Circle
-        var deltax = Math.abs(this._x - x)
-        var deltay = Math.abs(this._y - y)
+        let deltax = Math.abs(this._x - x)
+        let deltay = Math.abs(this._y - y)
 
         // Calculate hypotneuse
         return Calc.hyp(deltax, deltay) <= (this._radius + this._lineWidth)
@@ -137,7 +136,7 @@ export default class Knob extends UIObj {
         else {
             if (this._snaps) {
                 // Check if a default has been set
-                var dflt = _.find(this._snaps, {
+                let dflt = _.find(this._snaps, {
                     default: true
                 })
 
