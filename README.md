@@ -1,10 +1,21 @@
-### ToneMon: WebAudio and Canvas based synthesizer and sequencer
+### ToneMon: A WebAudio and Canvas based synthesizer and sequencer
 
-This project was created as a fun way to explore the WebAudio API, it has been developed and solely
-tested on chrome in its current state.
+This project was created as a fun way to explore the new WebAudio API, it has been developed and solely
+tested on chrome in its current state. The implementation takes advantage of many ES6 constructs such as
+imports and classes.
 
-The implementation takes advantage of many ES6 constructs such as imports and classes.
+#### App-level Dependencies
 
-#### Dependencies
+Currently the only app level dependency is [lodash](https://lodash.com/), which is used for easy array/collection manipulation.
 
-Currently the only app level dependency is lodash, which is used for easy array/collection manipulation.
+#### Build-level Dependencies
+
+This project uses [WebPack](https://webpack.github.io/) to build/compile ES6 javascript.
+
+##### Build Instructions
+
+Make sure to install the dependencies through npm before building.
+
+To build: `npm run build`
+
+For development (create a server on localhost): `npm run watch`
