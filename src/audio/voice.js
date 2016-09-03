@@ -5,29 +5,34 @@ export default class Voice {
     constructor(actx) {
         this.id = Str.id()
 
+        // AudioContext
         this.ctx = actx
+
+        // Main oscillator
         this.osc = actx.createOscillator()
         this.osc.start()
+
+        // Amplifier
         this.vca = this.ctx.createGain()
         this.vca.gain.value = 0
         this.osc.connect(this.vca)
 
-        this.octave = 0
-        this.transpose = 0
+        // Octave and _transpose properties
+        this._octave = 0
+        this._transpose = 0
 
-        this._attack = 1;
-        this._release = 1;
+        this._attack = 0;
+        this._release = 0;
         this._note = {
             freq: -1
         }
 
         this.vca.connect(this.ctx.destination)
-        this.wave = 'triangle'
     }
 
     setWave(wave) {
         if (!_.includes(['sine', 'square', 'sawtooth', 'triangle', 'custom'], wave)) throw ('Voice (' + this.id + '): Invalid waveform')
-        this.wave = wave
+        this._wave = wave
         return this
     }
 
@@ -39,12 +44,13 @@ export default class Voice {
 
     setNote(note) {
         // Update waveform
-        if (this.osc.type !== this.wave) this.osc.type = this.wave
+        if (this.osc.type !== this._wave) this.osc.type = this._wave
 
+        // Copy note as property
         this._note = _.clone(note);
 
         // Transpose note
-        note = Notes.transpose(note, this.octave * 12 + this.transpose)
+        note = Notes.transpose(note, this._octave * 12 + this._transpose)
 
         // Set based on frequency envelope
         switch (this.freqEnvelope) {
@@ -84,40 +90,42 @@ export default class Voice {
     // Full Octave Transpose
 
     setOctave(oct) {
-        this.octave = _.clamp(oct, 0, 11)
+        this._octave = _.clamp(oct, 0, 11)
         return this
     }
 
     upOctave() {
-        this.octave = _.clamp(this.octave + 1, 0, 11)
+        this._octave = _.clamp(this._octave + 1, 0, 11)
     }
 
     downOctave() {
-        this.octave = _.clamp(this.octave - 1, 0, 11)
+        this._octave = _.clamp(this._octave - 1, 0, 11)
     }
 
     // Transpose
 
     setTranspose(delta) {
-        this.transpose = _.clamp(delta, -11, 12)
+        this._transpose = _.clamp(delta, -11, 12)
         return this
     }
 
     upTranspose() {
-        this.transpose = _.clamp(this.transpose + 1, -11, 12)
+        this._transpose = _.clamp(this._transpose + 1, -11, 12)
     }
 
     downTranspose() {
-        this.transpose = _.clamp(this.transpose - 1, -11, 12)
+        this._transpose = _.clamp(this._transpose - 1, -11, 12)
     }
 
     // Attack and release
 
     setAttack(t) {
-        this._attack = 1;
+        this._attack = t
+        return this
     }
 
     setRelease(t) {
-        this._release = 1;
+        this._release = t
+        return this
     }
 }

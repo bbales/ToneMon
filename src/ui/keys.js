@@ -10,8 +10,8 @@ export default class Keys extends UIObj {
         this.octave = 3
         this.lineWidth = 1
 
-        this.x = 100
-        this.y = 300
+        this.x = 200
+        this.y = 500
 
         this.height = 100
         this.width = 500

@@ -10,7 +10,7 @@ export default class Knob extends UIObj {
         this._y = 0
         this._angle = 270
         this._radius = 50
-        this._lineWidth = 5
+        this._lineWidth = 2
 
         this._max = 360
         this._min = 0
@@ -30,7 +30,7 @@ export default class Knob extends UIObj {
         this.ctx.beginPath()
         this.ctx.arc(this._x, this._y, this._radius, 0, 2 * Math.PI)
         this.ctx.lineWidth = this._lineWidth
-        this.ctx.strokeStyle = '#F00'
+        this.ctx.strokeStyle = '#FFF'
         this.ctx.stroke()
         this.ctx.closePath()
 
@@ -46,20 +46,45 @@ export default class Knob extends UIObj {
         this.ctx.stroke()
         this.ctx.closePath()
 
-
         // Draw text
         if (_.isArray(this._snaps)) {
             this.ctx.font = '12px Arial'
-            this.ctx.fillStyle = 'white'
             this.ctx.textAlign = 'center'
+            this.ctx.shadowColor = '#83d8ff';
             for (var s of this._snaps) {
+                this.ctx.fillStyle = s.active ? '#83d8ff' : 'white'
+                this.ctx.shadowBlur = s.active ? 10 : 0
                 var safeAngle = Calc.d2r(((s.angle > 180) ? s.angle - 360 : s.angle) + 90)
-                this.ctx.fillText(s.text, this._x + 1.5 * this._radius * Math.cos(safeAngle), this._y + 1.5 * this._radius * Math.sin(safeAngle))
+                this.ctx.fillText(s.text, this._x + (16 + this._radius) * Math.cos(safeAngle), this._y + (16 + this._radius) * Math.sin(safeAngle))
             }
+            this.ctx.shadowBlur = 0
+        } else {
+
+            // If not a snapping knob, show tracer
+            let safeMin = Calc.d2r(((this._min > 180) ? this._min - 360 : this._min) + 90)
+            let safeCurrent = Calc.d2r(((this._angle > 180) ? this._angle - 360 : this._angle) + 90)
+            let safeMax = Calc.d2r(((this._max > 180) ? this._max - 360 : this._max) + 90)
+            this.ctx.lineWidth = this._lineWidth
+
+            this.ctx.beginPath()
+            this.ctx.shadowBlur = 10
+            this.ctx.shadowColor = '#83d8ff';
+            this.ctx.arc(this._x, this._y, this._radius + 5, safeMin, safeCurrent)
+            this.ctx.strokeStyle = '#83d8ff'
+            this.ctx.stroke()
+            this.ctx.closePath()
+            this.ctx.shadowBlur = 0
+
+            this.ctx.beginPath()
+            this.ctx.arc(this._x, this._y, this._radius + 5, safeCurrent, safeMax)
+            this.ctx.strokeStyle = '#19344c'
+            this.ctx.stroke()
         }
 
         // Draw title
-        this.ctx.fillText(this._title, this._x, this._y + this._radius * 2)
+        this.ctx.fillStyle = 'white'
+        this.ctx.fillText(this._title, this._x, this._y + this._radius * 2.2)
+        this.ctx.closePath()
     }
 
     hitBox(x, y) {
@@ -142,6 +167,8 @@ export default class Knob extends UIObj {
             // Set the angle
             this.angle = closest.angle
             return
+        } else {
+            this._changeFn(_.clamp((this.angle - this._min) / (this._max - this._min), 0, 1));
         }
 
         // Snap angle
@@ -157,7 +184,7 @@ export default class Knob extends UIObj {
         if (!e || this.hitBox(e.pageX, e.pageY)) this.twistin = true
     }
 
-    // More understandable angle
+    // Property for a more understandable angle
 
     get angle() {
         return (this._angle < 0) ? 360 + this._angle : this._angle
