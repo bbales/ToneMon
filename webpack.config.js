@@ -1,10 +1,13 @@
 const webpack = require('webpack');
 const path = require('path');
+const autoprefixer = require('autoprefixer');
+const precss = require('precss');
 
 // paths to our code
 const PATHS = {
     app: './src/app.js',
     html: './src/index.html',
+    style: './src/styles/main.scss',
     dist: path.join(__dirname, 'dist')
 };
 
@@ -13,6 +16,7 @@ module.exports = {
     entry: {
         javascript: PATHS.app,
         html: PATHS.html,
+        css: PATHS.style
     },
 
     // spit out bundled code; set where it "mounts"
@@ -37,6 +41,14 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loaders: ['babel-loader']
+            },
+            {
+                test: /\.scss$/,
+                loaders: ['style', 'css', 'sass']
+            },
+            {
+                test: /\.(jpg|png)$/,
+                loader: "file?name=[path][name].[ext]"
             }
         ]
     }

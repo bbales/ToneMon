@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import './styles/main.scss'; // import compiled scss file into webpack bundle
 import Calc from './util/calc'
 import Knob from './ui/knob'
 import Canvas from './ui/canvas'

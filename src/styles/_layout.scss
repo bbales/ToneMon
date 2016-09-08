@@ -1,0 +1,12 @@
+body{
+    margin: 0 0;
+    height:900px;
+    overflow:hidden;
+    background-color: rgb(23.7%, 23.7%, 23.7%);
+    -webkit-user-select: none;
+}
+
+canvas{
+    z-index:5;
+    position:absolute;
+}
