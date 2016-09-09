@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
-const precss = require('precss');
 
 // paths to our code
 const PATHS = {
@@ -32,24 +31,19 @@ module.exports = {
     },
 
     module: {
-        loaders: [
-            {
-                test: /\.html$/,
-                loader: "file?name=[name].[ext]"
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loaders: ['babel-loader']
-            },
-            {
-                test: /\.scss$/,
-                loaders: ['style', 'css', 'sass']
-            },
-            {
-                test: /\.(jpg|png)$/,
-                loader: "file?name=[path][name].[ext]"
-            }
-        ]
+        loaders: [{
+            test: /\.html$/,
+            loader: "file?name=[name].[ext]"
+        }, {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loaders: ['babel-loader']
+        }, {
+            test: /\.scss$/,
+            loaders: ['style', 'css', 'sass']
+        }, {
+            test: /\.(jpg|png)$/,
+            loader: "file?name=[path][name].[ext]"
+        }]
     }
 }
