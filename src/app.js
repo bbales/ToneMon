@@ -32,7 +32,7 @@ k1.setPos(200, 150).setRadius(20).setMinMax(30, 200).setSnaps([{
 }, {
     text: '◺',
     value: 'sawtooth'
-}]).change(v1.setWave.bind(v1));
+}]).change(value => v1.setWave(value))
 
 var osc1_atk = new Knob(canvas, 'OSC1 Attack')
 osc1_atk.setPos(300, 150).setRadius(20).setMinMax(30, 330).change(function(p) {

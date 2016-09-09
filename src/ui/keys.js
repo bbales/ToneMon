@@ -78,17 +78,17 @@ export default class Keys extends UIObj {
     }
 
     setNote(note) {
-        this.voices.map(o => o.setNote.bind(o, note)())
+        this.voices.map(o => o.setNote(note))
     }
 
     playNote() {
         this.playing = true
-        this.voices.map(o => o.play.bind(o)())
+        this.voices.map(o => o.play())
     }
 
     stopNote() {
         this.playing = false
-        this.voices.map(o => o.stop.bind(o)())
+        this.voices.map(o => o.stop())
     }
 
     // Octave

@@ -13,10 +13,10 @@ export default class Canvas {
         for (var eventName of capture) this.elem.addEventListener(eventName, this[eventName + 'Handler'].bind(this))
 
         // Window mouseup
-        window.addEventListener('mouseup', this.mouseupHandler.bind(this))
+        window.addEventListener('mouseup', e => this.mouseupHandler(e))
 
         // Start draw loop
-        setInterval(this.redraw.bind(this), 1000 / 24)
+        setInterval(() => this.redraw(), 1000 / 24)
     }
 
     width() {
@@ -28,19 +28,19 @@ export default class Canvas {
     }
 
     mousedownHandler(e) {
-        this.objs.map(o => o.mousedownHandler.bind(o, Calc.addOffsetCoord(e))())
+        this.objs.map(o => o.mousedownHandler(Calc.addOffsetCoord(e)))
     }
 
     mouseupHandler(e) {
-        this.objs.map(o => o.mouseupHandler.bind(o, Calc.addOffsetCoord(e))())
+        this.objs.map(o => o.mouseupHandler(Calc.addOffsetCoord(e)))
     }
 
     mousemoveHandler(e) {
-        this.objs.map(o => o.mousemoveHandler.bind(o, Calc.addOffsetCoord(e))())
+        this.objs.map(o => o.mousemoveHandler(Calc.addOffsetCoord(e)))
     }
 
     redraw() {
         this.ctx.clearRect(0, 0, this.elem.width, this.elem.height)
-        this.objs.map(e => e.draw.bind(e)())
+        this.objs.map(e => e.draw())
     }
 }
