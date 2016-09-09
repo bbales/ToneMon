@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const autoprefixer = require('autoprefixer');
-const precss = require('precss');
+const Dashboard = require('webpack-dashboard/plugin')
 
 // paths to our code
 const PATHS = {
@@ -51,5 +51,7 @@ module.exports = {
                 loader: "file?name=[path][name].[ext]"
             }
         ]
-    }
+    },
+    
+    plugins: [ new Dashboard()]
 }
