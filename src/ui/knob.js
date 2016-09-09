@@ -5,17 +5,15 @@ export default class Knob extends UIObj {
     constructor(canvas, title) {
         super(canvas)
 
+        this._title = title || ''
         this._x = 0
         this._y = 0
         this._angle = 270
         this._radius = 50
         this._lineWidth = 2
-
         this._max = 360
         this._min = 0
         this._changeFn = _.noop
-
-        this._title = title || ''
     }
 
     init() {
@@ -50,7 +48,7 @@ export default class Knob extends UIObj {
             this.ctx.font = '12px Arial'
             this.ctx.textAlign = 'center'
             this.ctx.shadowColor = '#83d8ff';
-            for (var s of this._snaps) {
+            for (let s of this._snaps) {
                 this.ctx.fillStyle = s.active ? '#83d8ff' : 'white'
                 this.ctx.shadowBlur = s.active ? 10 : 0
                 let safeAngle = Calc.nd2r(s.angle)
@@ -102,9 +100,8 @@ export default class Knob extends UIObj {
         this._snapsShowText = showText || true
         this._snaps = arr
 
-        var self = this
-        if (!this._snaps[0].angle) this._snaps.forEach(function(s, i) {
-            s.angle = self._min + i * (self._max - self._min) / self._snaps.length
+        if (!this._snaps[0].angle) this._snaps.forEach((s, i) => {
+            s.angle = this._min + i * (this._max - this._min) / this._snaps.length
         })
 
         this.init()

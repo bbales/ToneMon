@@ -19,6 +19,7 @@ export default class UIObj {
     mousemoveHandler() {}
     mouseupHandler() {}
     mousedownHandler() {}
+    draw() {}
 
     setPos(x, y) {
         this._x = x

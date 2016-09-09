@@ -28,15 +28,15 @@ export default class Canvas {
     }
 
     mousedownHandler(e) {
-        this.objs.map(o => o.mousedownHandler(Calc.addOffsetCoord(e)))
+        this.objs.map(o => o.mousedownHandler(e))
     }
 
     mouseupHandler(e) {
-        this.objs.map(o => o.mouseupHandler(Calc.addOffsetCoord(e)))
+        this.objs.map(o => o.mouseupHandler(e))
     }
 
     mousemoveHandler(e) {
-        this.objs.map(o => o.mousemoveHandler(Calc.addOffsetCoord(e)))
+        this.objs.map(o => o.mousemoveHandler(e))
     }
 
     redraw() {

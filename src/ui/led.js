@@ -37,7 +37,6 @@ export default class Led extends UIObj {
         this.ctx.closePath();
 
         this.ctx.shadowBlur = 0;
-
     }
 
     setColor(color) {

@@ -35,12 +35,12 @@ k1.setPos(200, 150).setRadius(20).setMinMax(30, 200).setSnaps([{
 }]).change(value => v1.setWave(value))
 
 var osc1_atk = new Knob(canvas, 'OSC1 Attack')
-osc1_atk.setPos(300, 150).setRadius(20).setMinMax(30, 330).change(function(p) {
+osc1_atk.setPos(300, 150).setRadius(20).setMinMax(30, 330).change(p => {
     v1.setAttack(p * 4)
 });
 
 var osc1_rel = new Knob(canvas, 'OSC1 Release')
-osc1_rel.setPos(400, 150).setRadius(20).setMinMax(30, 330).change(function(p) {
+osc1_rel.setPos(400, 150).setRadius(20).setMinMax(30, 330).change(p => {
     v1.setRelease(p * 4)
 });
 

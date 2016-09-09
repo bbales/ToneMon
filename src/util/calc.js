@@ -18,19 +18,16 @@ export default class Calc {
     static hyp(opp, adj) {
         return Math.sqrt(opp * opp + adj * adj)
     }
-
-    // Calculate event relative x and y
-    static rx(e) {
-        return e.pageX - e.target.offsetLeft - e.target.offsetParent.offsetLeft;
-    }
-
-    static ry(e) {
-        return e.pageY - e.target.offsetTop - e.target.offsetParent.offsetTop;
-    }
-
-    static addOffsetCoord(e) {
-        e.rx = this.rx(e);
-        e.ry = this.ry(e);
-        return e;
-    }
 }
+
+Object.defineProperty(MouseEvent.prototype, 'rx', {
+    'get': function() {
+        return this.pageX - this.target.offsetLeft - this.target.offsetParent.offsetLeft;
+    }
+});
+
+Object.defineProperty(MouseEvent.prototype, 'ry', {
+    'get': function() {
+        return this.pageY - this.target.offsetTop - this.target.offsetParent.offsetTop;
+    }
+});

@@ -22,17 +22,16 @@ export default class Keys extends UIObj {
     }
 
     draw() {
-        var self = this
         this.ctx.strokeStyle = '#0EE'
         this.ctx.lineWidth = this.lineWidth
 
-        this.octave.forEach(function(o, i) {
-            self.ctx.beginPath()
-            self.ctx.fillStyle = o.active ? '#044' : (o.note.length > 1 ? '#022' : '#033')
-            self.ctx.fillRect(self.x + i * self.keyWidth, self.y, self.keyWidth, self.keyWidth * 5)
-            self.ctx.rect(self.x + i * self.keyWidth, self.y, self.keyWidth, self.keyWidth * 5)
-            self.ctx.stroke()
-            self.ctx.closePath()
+        this.octave.forEach((o, i) => {
+            this.ctx.beginPath()
+            this.ctx.fillStyle = o.active ? '#044' : (o.note.length > 1 ? '#022' : '#033')
+            this.ctx.fillRect(this.x + i * this.keyWidth, this.y, this.keyWidth, this.keyWidth * 5)
+            this.ctx.rect(this.x + i * this.keyWidth, this.y, this.keyWidth, this.keyWidth * 5)
+            this.ctx.stroke()
+            this.ctx.closePath()
         })
     }
 
@@ -41,7 +40,7 @@ export default class Keys extends UIObj {
         if (!this.hitBox(e.rx, e.ry) || !this.playing) return
 
         // Find out which key is being clicked
-        var note = this.octave[Math.floor((e.rx - this.x) / this.keyWidth)]
+        let note = this.octave[Math.floor((e.rx - this.x) / this.keyWidth)]
         note.active = true
         this.setNote(note)
     }

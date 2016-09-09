@@ -4,7 +4,6 @@ export default class Switch extends UIObj {
     constructor(canvas, title) {
         super(canvas)
         this.otype = 'switch'
-
     }
 
     draw() {
