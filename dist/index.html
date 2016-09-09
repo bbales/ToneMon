@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ToneMon</title>
+        <style>
+        body{
+            margin: 0 0;
+            background-color:black;
+            -webkit-user-select: none;
+        }
+
+        background{
+            z-index:1;
+            position:fixed;
+            height:100vh;
+            width:100vw;
+            background-image: url('img/bg.png');
+            background-size: 100vw 110vh;
+            opacity:0.5;
+        }
+
+        wood-panel{
+            z-index:2;
+            position:fixed;
+            width:50px;
+            background-image: url('img/wood.jpg');
+            background-size: 600% 200%;
+            height:100vh;
+            box-shadow: 0px 0px 15px black;
+        }
+
+        canvas{
+            z-index:3;
+            position:absolute;
+        }
+        </style>
+
+    </head>
+    <body>
+        <background></background>
+        <div id="test"></div>
+        <canvas id="canvas" width="800" height="600"></canvas>
+        <wood-panel style="left:0px;"></wood-panel>
+        <wood-panel style="right:0px;"></wood-panel>
+        <script src="bundle.js"></script>
+    </body>
+</html>
