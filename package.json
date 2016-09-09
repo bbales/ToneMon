@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "webpack",
-    "watch": "webpack-dev-server --hot --inline"
+    "start": "webpack-dashboard -- webpack-dev-server --hot --inline"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
+    "webpack-dashboard": "^0.1.8",
     "webpack-dev-server": "^1.15.0"
   }
 }
