@@ -7,6 +7,7 @@ import Voice from './audio/voice'
 import Keys from './ui/keys'
 import Led from './ui/led'
 import Switch from './ui/switch'
+import Oscilloscope from './ui/oscilloscope';
 
 // UI
 var canvas = new Canvas('canvas')
@@ -50,3 +51,9 @@ for (var i = 0; i < 5; i++) {
     led1.setPos(200 + 55 * i, 50);
     led1.setColor(colors[i])
 }
+
+// Oscilloscope
+
+
+var mahScope = new Oscilloscope(canvas, v1.ctx);
+mahScope.draw();
