@@ -55,5 +55,7 @@ for (var i = 0; i < 5; i++) {
 // Oscilloscope
 
 
-var mahScope = new Oscilloscope(canvas, v1.ctx);
+var mahScope = new Oscilloscope(canvas, v1);
 mahScope.draw();
+
+v1.connectOscilloscope(mahScope)

@@ -2,7 +2,7 @@ import Tool from '../util/tool'
 import Notes from './notes'
 
 export default class Voice {
-    constructor(actx) {
+    constructor(actx, oscilloscope) {
         this.id = Tool.id()
 
         // AudioContext
@@ -125,5 +125,9 @@ export default class Voice {
     setRelease(t) {
         this._release = t
         return this
+    }
+
+    connectOscilloscope(scope) {
+        this.vca.connect(scope)
     }
 }

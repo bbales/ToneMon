@@ -1,15 +1,15 @@
 import UIObj from './uiobj';
 
 export default class Oscilloscope extends UIObj {
-  constructor(canvas, actx) {
+  constructor(canvas, audioSource) {
     super(canvas)
-    console.log(canvas, actx);
+    console.log(canvas, audioSource);
 
     this.width = 200;
     this.height = 100;
     this.ctx.clearRect(0, 0, this.width, this.height);
 
-    this.oscScope = actx.createAnalyser();
+    this.oscScope = audioSource.ctx.createAnalyser();
     this.oscScope.fftSize = 2048;
     this.bufferLength = this.oscScope.frequencyBinCount;
     this.dataArray = new Uint8Array(this.bufferLength);
@@ -37,9 +37,9 @@ export default class Oscilloscope extends UIObj {
     this.sliceX = 0;
 
     // draw the osc from moment to moment.
-    for (var i = 0; i < this.bufferLength; i++) {
-      var v = this.dataArray[i] / 128.0;
-      var sliceY = v * this.height / 2;
+    for (let i = 0; i < this.bufferLength; i++) {
+      let v = this.dataArray[i] / 128.0;
+      let sliceY = v * this.height / 2;
 
       if (i === 0) {
         this.ctx.moveTo(this.sliceX, sliceY);
