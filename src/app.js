@@ -15,11 +15,15 @@ var keys = new Keys(canvas)
 
 // Audio
 var actx = new window.AudioContext()
+// var oscScope = actx.createAnalyser();
 var v1 = new Voice(actx)
+
 v1.setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(2)
+
 keys.attach(v1)
 
 var k1 = new Knob(canvas, 'OSC1 Shape')
+
 k1.setPos(200, 150).setRadius(20).setMinMax(30, 200).setSnaps([{
     text: '◻',
     value: 'square'
@@ -55,7 +59,7 @@ for (var i = 0; i < 5; i++) {
 // Oscilloscope
 
 
-var mahScope = new Oscilloscope(canvas, v1);
+var mahScope = new Oscilloscope(canvas, v1.ctx);
+v1.connectOscilloscope(mahScope)
 mahScope.draw();
 
-v1.connectOscilloscope(mahScope)

@@ -9,12 +9,11 @@ export default class Oscilloscope extends UIObj {
     this.height = 100;
     this.ctx.clearRect(0, 0, this.width, this.height);
 
-    this.oscScope = audioSource.ctx.createAnalyser();
+    this.oscScope = audioSource.createAnalyser();
     this.oscScope.fftSize = 2048;
     this.bufferLength = this.oscScope.frequencyBinCount;
     this.dataArray = new Uint8Array(this.bufferLength);
     this.oscScope.getByteTimeDomainData(this.dataArray);
-
   }
 
 
