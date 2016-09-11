@@ -1,19 +1,32 @@
+/*
+Purpose: This class is for creating an Oscilloscope.
+Paramaters:
+  - CANVAS: The canvas object - allows the oscilloscope to be added to the canvas
+  - AUDIOCONTEXT: Used to create the `Analyser` node that analyses the incoming audio.
+  - VOICES: Any voices that you want to be shown in the oScope are passed in as an array.
+    - The voice class now has a method that connects itself to the oscilloscope.
+*/
+
+
 import UIObj from './uiobj';
 
 export default class Oscilloscope extends UIObj {
-  constructor(canvas, audioSource) {
+  constructor(canvas, audioContext, voices) {
     super(canvas)
-    console.log(canvas, audioSource);
 
+    // create the oscilloscope box.
     this.width = 200;
     this.height = 100;
-    this.ctx.clearRect(0, 0, this.width, this.height);
 
-    this.oscScope = audioSource.createAnalyser();
-    this.oscScope.fftSize = 2048;
-    this.bufferLength = this.oscScope.frequencyBinCount;
+    // Setup and config (fft, data stuffs.)
+    this.oScope = audioContext.createAnalyser();
+    this.oScope.fftSize = 2048;
+    this.bufferLength = this.oScope.frequencyBinCount;
     this.dataArray = new Uint8Array(this.bufferLength);
-    this.oscScope.getByteTimeDomainData(this.dataArray);
+    this.oScope.getByteTimeDomainData(this.dataArray);
+
+    // loop through the voices and connect to the scope.
+    voices.forEach(voice => voice.connectOscilloscope(this.oScope));
   }
 
 
@@ -21,8 +34,7 @@ export default class Oscilloscope extends UIObj {
     // the animation loop
     let drawVisual = requestAnimationFrame(this.draw.bind(this));
 
-    // ?
-    this.oscScope.getByteTimeDomainData(this.dataArray);
+    this.oScope.getByteTimeDomainData(this.dataArray);
 
     // the style of the osc.
     this.ctx.fillStyle = 'rgb(10, 200, 200)';
