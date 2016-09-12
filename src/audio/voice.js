@@ -128,8 +128,9 @@ export default class Voice {
         return this
     }
 
+    // Oscilloscope
+
     connectOscilloscope(scope) {
-        console.log('test');
         this.vca.connect(scope)
     }
 }

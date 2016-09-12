@@ -17,21 +17,17 @@ var keys = new Keys(canvas)
 var actx = new window.AudioContext()
 
 // Synth voice(s)
-var v1 = new Voice(actx)
-v1.setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(2)
+var v1 = new Voice(actx).setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(2)
 
-// Create the oscilloscope 
+// Create the oscilloscope
 const voices = [v1]
-const oScope = new Oscilloscope(canvas, actx, voices);
-oScope.draw();
+let oScope = new Oscilloscope(canvas, actx, voices).setPos(500, 100)
 
 // Keys
 keys.attach(v1)
 
 // Knobs
-var k1 = new Knob(canvas, 'OSC1 Shape')
-
-k1.setPos(200, 150).setRadius(20).setMinMax(30, 200).setSnaps([{
+var k1 = new Knob(canvas, 'OSC1 Shape').setPos(200, 150).setRadius(20).setMinMax(30, 200).setSnaps([{
     text: '◻',
     value: 'square'
 }, {
@@ -46,13 +42,11 @@ k1.setPos(200, 150).setRadius(20).setMinMax(30, 200).setSnaps([{
     value: 'sawtooth'
 }]).change(value => v1.setWave(value))
 
-var osc1_atk = new Knob(canvas, 'OSC1 Attack')
-osc1_atk.setPos(300, 150).setRadius(20).setMinMax(30, 330).change(p => {
+var osc1_atk = new Knob(canvas, 'OSC1 Attack').setPos(300, 150).setRadius(20).setMinMax(30, 330).change(p => {
     v1.setAttack(p * 4)
 });
 
-var osc1_rel = new Knob(canvas, 'OSC1 Release')
-osc1_rel.setPos(400, 150).setRadius(20).setMinMax(30, 330).change(p => {
+var osc1_rel = new Knob(canvas, 'OSC1 Release').setPos(400, 150).setRadius(20).setMinMax(30, 330).change(p => {
     v1.setRelease(p * 4)
 });
 
