@@ -1,5 +1,6 @@
 import Tool from '../util/tool'
 import Notes from './notes'
+import OscScope from '../ui/oscilloscope';
 
 export default class Voice {
     constructor(actx) {
@@ -125,5 +126,10 @@ export default class Voice {
     setRelease(t) {
         this._release = t
         return this
+    }
+
+    connectOscilloscope(scope) {
+        console.log('test');
+        this.vca.connect(scope)
     }
 }

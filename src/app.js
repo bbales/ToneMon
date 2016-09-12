@@ -7,6 +7,7 @@ import Voice from './audio/voice'
 import Keys from './ui/keys'
 import Led from './ui/led'
 import Switch from './ui/switch'
+import Oscilloscope from './ui/oscilloscope';
 
 // UI
 var canvas = new Canvas('canvas')
@@ -14,11 +15,22 @@ var keys = new Keys(canvas)
 
 // Audio
 var actx = new window.AudioContext()
+
+// Synth voice(s)
 var v1 = new Voice(actx)
 v1.setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(2)
+
+// Create the oscilloscope 
+const voices = [v1]
+const oScope = new Oscilloscope(canvas, actx, voices);
+oScope.draw();
+
+// Keys
 keys.attach(v1)
 
+// Knobs
 var k1 = new Knob(canvas, 'OSC1 Shape')
+
 k1.setPos(200, 150).setRadius(20).setMinMax(30, 200).setSnaps([{
     text: '◻',
     value: 'square'
@@ -44,6 +56,7 @@ osc1_rel.setPos(400, 150).setRadius(20).setMinMax(30, 330).change(p => {
     v1.setRelease(p * 4)
 });
 
+// LEDs
 var colors = ['red', 'green', 'yellow', 'violet', 'orange'];
 for (var i = 0; i < 5; i++) {
     var led1 = new Led(canvas);
