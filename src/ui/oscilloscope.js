@@ -45,13 +45,11 @@ export default class Oscilloscope extends UIObj {
 
         // draw the osc from moment to moment.
         for (let i = 0; i < this._bufferLength; i++) {
-            let v = this._dataArray[i] / 128.0;
-            let sliceY = v * this._height / 2;
+            let sliceY = (this._dataArray[i] / 128.0) * this._height / 2;
             this.ctx[i ? 'lineTo' : 'moveTo'](this._x + this.sliceX, this._y + sliceY);
             this.sliceX += this.sliceWidth;
         }
 
-        this.ctx.lineTo(this.ctx._width, this.ctx._height / 2);
         this.ctx.stroke();
     }
 
