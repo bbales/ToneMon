@@ -22,5 +22,5 @@ Make sure to install the dependencies through npm before building:
 To build:
 `npm run build`
 
-For development (create a server on localhost):
+For development (creates a server on localhost):
 `npm run watch`
