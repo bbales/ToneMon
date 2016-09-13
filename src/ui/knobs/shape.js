@@ -2,9 +2,12 @@ import Knob from '../knob'
 
 export default class ShapeKnob extends Knob {
     constructor(canvas, voice) {
-        super(canvas, voice._name + 'Shape')
+        super(canvas, voice._name + ' Shape')
 
-        this.setRadius(20).setMinMax(30, 200).setSnaps([{
+        this.setRadius(20)
+        this.setMinMax(30, 200)
+        this.change(value => voice.setWave(value))
+        this.setSnaps([{
             text: '◻',
             value: 'square'
         }, {
@@ -17,6 +20,6 @@ export default class ShapeKnob extends Knob {
         }, {
             text: '◺',
             value: 'sawtooth'
-        }]).change(value => voice.setWave(value))
+        }])
     }
 }

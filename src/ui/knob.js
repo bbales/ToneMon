@@ -82,7 +82,7 @@ export default class Knob extends UIObj {
 
         // Draw title
         this.ctx.fillStyle = 'white'
-        this.ctx.fillText(this._title, this._x, this._y + this._radius * 2.2)
+        this.ctx.fillText(this._title, this._x, this._y + 44)
         this.ctx.closePath()
     }
 
