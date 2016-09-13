@@ -3,8 +3,9 @@ import Notes from './notes'
 import OscScope from '../ui/oscilloscope';
 
 export default class Voice {
-    constructor(actx) {
+    constructor(actx, name) {
         this.id = Tool.id()
+        this._name = name;
 
         // AudioContext
         this.ctx = actx
