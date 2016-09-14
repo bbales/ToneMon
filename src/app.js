@@ -5,12 +5,7 @@ import './styles/main.scss';
 import _ from 'lodash'
 
 // Local deps
-import Calc from './util/calc'
-import Knob from './ui/knob'
-import OctaveKnob from './ui/knobs/octave'
-import AttackKnob from './ui/knobs/attack'
-import ReleaseKnob from './ui/knobs/release'
-import ShapeKnob from './ui/knobs/shape'
+import * as Knobs from './ui/knobs/knobs'
 import Canvas from './ui/canvas'
 import Voice from './audio/voice'
 import Keys from './ui/keys'
@@ -40,16 +35,16 @@ keys.attach(v2)
 new Switch(canvas, 'Test').setPos(300, 400)
 
 // OSC1
-var osc1_shape = new ShapeKnob(canvas, v1).setPos(200, 150)
-var osc1_atk = new AttackKnob(canvas, v1).setPos(300, 150)
-var osc1_rel = new ReleaseKnob(canvas, v1).setPos(400, 150)
-var osc1_octave = new OctaveKnob(canvas, v1).setPos(500, 150)
+var osc1_shape = new Knobs.ShapeKnob(canvas, v1).setPos(200, 150)
+var osc1_atk = new Knobs.AttackKnob(canvas, v1).setPos(300, 150)
+var osc1_rel = new Knobs.ReleaseKnob(canvas, v1).setPos(400, 150)
+var osc1_octave = new Knobs.OctaveKnob(canvas, v1).setPos(500, 150)
 
 // OSC2
-var osc2_shape = new ShapeKnob(canvas, v2).setPos(200, 250)
-var osc2_atk = new AttackKnob(canvas, v2).setPos(300, 250);
-var osc2_rel = new ReleaseKnob(canvas, v2).setPos(400, 250);
-var osc2_octave = new OctaveKnob(canvas, v2).setPos(500, 250)
+var osc2_shape = new Knobs.ShapeKnob(canvas, v2).setPos(200, 250)
+var osc2_atk = new Knobs.AttackKnob(canvas, v2).setPos(300, 250);
+var osc2_rel = new Knobs.ReleaseKnob(canvas, v2).setPos(400, 250);
+var osc2_octave = new Knobs.OctaveKnob(canvas, v2).setPos(500, 250)
 
 // LEDs
 var colors = ['red', 'green', 'yellow', 'violet', 'orange'];
