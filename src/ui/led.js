@@ -5,7 +5,7 @@ export default class Led extends UIObj {
         super(canvas)
 
         // Set to default
-        this.setColor();
+        this.setColor()
     }
 
     draw() {
@@ -14,29 +14,29 @@ export default class Led extends UIObj {
         this.ctx.strokeStyle = 'black'
 
         // Draw outer circle
-        this.ctx.beginPath();
-        this.ctx.arc(this._x, this._y, 10, 0, 2 * Math.PI);
-        this.ctx.stroke();
-        this.ctx.closePath();
+        this.ctx.beginPath()
+        this.ctx.arc(this._x, this._y, 8, 0, 2 * Math.PI)
+        this.ctx.stroke()
+        this.ctx.closePath()
 
         // Draw inner circle
         this.ctx.shadowOffsetX = 0
         this.ctx.shadowOffsetY = 0
-        this.ctx.shadowBlur = 15
+        this.ctx.shadowBlur = 10
 
         // Create glow
-        let grd = this.ctx.createRadialGradient(this._x, this._y, 2, this._x + 2, this._y + 2, 8);
-        grd.addColorStop(1, this._on ? '#212121' : this._color1);
-        grd.addColorStop(0, this._on ? '#5a5a5a' : this._color2);
-        this.ctx.shadowColor = this._on ? '#5a5a5a' : this._color1;
-        this.ctx.fillStyle = grd;
+        let grd = this.ctx.createRadialGradient(this._x, this._y, 2, this._x + 2, this._y + 2, 5)
+        grd.addColorStop(1, this._on ? '#212121' : this._color1)
+        grd.addColorStop(0, this._on ? '#5a5a5a' : this._color2)
+        this.ctx.shadowColor = this._on ? '#5a5a5a' : this._color1
+        this.ctx.fillStyle = grd
 
-        this.ctx.beginPath();
-        this.ctx.arc(this._x, this._y, 8, 0, 2 * Math.PI);
-        this.ctx.fill();
-        this.ctx.closePath();
+        this.ctx.beginPath()
+        this.ctx.arc(this._x, this._y, 6, 0, 2 * Math.PI)
+        this.ctx.fill()
+        this.ctx.closePath()
 
-        this.ctx.shadowBlur = 0;
+        this.ctx.shadowBlur = 0
     }
 
     setColor(color) {

@@ -5,6 +5,7 @@ import './styles/main.scss';
 import _ from 'lodash'
 
 // Local deps
+import './util/protos'
 import * as Knobs from './ui/knobs/knobs'
 import Canvas from './ui/canvas'
 import Voice from './audio/voice'
@@ -32,7 +33,7 @@ keys.attach(v1)
 keys.attach(v2)
 
 // Switch
-new Switch(canvas, 'Test').setPos(300, 400)
+new Switch(canvas, 'Test').setPos(300, 380)
 
 // OSC1
 var osc1_shape = new Knobs.ShapeKnob(canvas, v1).setPos(200, 150)
