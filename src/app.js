@@ -50,7 +50,7 @@ var osc2_octave = new Knobs.OctaveKnob(canvas, v2).setPos(500, 250)
 // LEDs
 var colors = ['red', 'green', 'yellow', 'violet', 'orange'];
 for (var i = 0; i < 5; i++) {
-    var led1 = new Led(canvas);
-    led1.setPos(200 + 55 * i, 50);
+    var led1 = new Led(canvas)
+    led1.setPos(200 + 55 * i, 50)
     led1.setColor(colors[i])
 }
