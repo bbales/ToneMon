@@ -32,7 +32,7 @@ Object.defineProperty(MouseEvent.prototype, 'ry', {
     }
 });
 
-CanvasRenderingContext2D.prototype.drawRoundRect = function drawRoundRect(x, y, width, height, radius = 5) {
+CanvasRenderingContext2D.prototype.roundRect = function(x, y, width, height, radius = 5) {
     this.beginPath();
     this.moveTo(x + radius, y);
     this.lineTo(x + width - radius, y);
