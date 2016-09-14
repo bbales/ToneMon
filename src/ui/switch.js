@@ -15,7 +15,6 @@ export default class Switch extends UIObj {
 
         this._position = 0;
         this._changeFn = _.noop
-        this._changeFn = console.log.bind(console)
 
         this._options = {
             on: {

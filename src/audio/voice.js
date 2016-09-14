@@ -73,8 +73,8 @@ export default class Voice {
 
         // Attack
         this.vca.gain.cancelScheduledValues(this.ctx.currentTime - 1);
-        this.vca.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + 0.001)
-        this.vca.gain.linearRampToValueAtTime(1, this.ctx.currentTime + 0.001 + this._attack)
+        this.vca.gain.linearRampToValueAtTime(0.0005, this.ctx.currentTime)
+        this.vca.gain.linearRampToValueAtTime(0.5, this.ctx.currentTime + 0.03 + this._attack)
     }
 
     stop() {
@@ -84,7 +84,7 @@ export default class Voice {
         // Release
         this.vca.gain.cancelScheduledValues(this.ctx.currentTime - 1);
         this.vca.gain.setValueAtTime(this.vca.gain.value, this.ctx.currentTime)
-        this.vca.gain.linearRampToValueAtTime(0.001, this.ctx.currentTime + this._release)
+        this.vca.gain.linearRampToValueAtTime(0.0005, this.ctx.currentTime + 0.03 + this._release)
     }
 
     // Full Octave Transpose
