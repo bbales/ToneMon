@@ -26,4 +26,10 @@ export default class UIObj {
         this._y = y
         return this
     }
+
+    // Default hitbox is a rectangle
+
+    hitBox(x, y) {
+        return x > this._x && x < (this._x + this._width) && y > this._y && y < (this._y + this._height)
+    }
 }

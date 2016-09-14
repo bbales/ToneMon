@@ -31,3 +31,17 @@ Object.defineProperty(MouseEvent.prototype, 'ry', {
         return this.pageY - this.target.offsetTop - this.target.offsetParent.offsetTop;
     }
 });
+
+CanvasRenderingContext2D.prototype.drawRoundRect = function drawRoundRect(x, y, width, height, radius = 5) {
+    this.beginPath();
+    this.moveTo(x + radius, y);
+    this.lineTo(x + width - radius, y);
+    this.quadraticCurveTo(x + width, y, x + width, y + radius);
+    this.lineTo(x + width, y + height - radius);
+    this.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    this.lineTo(x + radius, y + height);
+    this.quadraticCurveTo(x, y + height, x, y + height - radius);
+    this.lineTo(x, y + radius);
+    this.quadraticCurveTo(x, y, x + radius, y);
+    this.closePath();
+}

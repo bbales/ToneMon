@@ -11,12 +11,12 @@ export default class Keys extends UIObj {
         this.octaveIndex = 3
         this.lineWidth = 1
 
-        this.x = 200
-        this.y = 500
+        this._x = 200
+        this._y = 500
 
-        this.height = 100
-        this.width = 500
-        this.keyWidth = this.width / 12
+        this._height = 100
+        this._width = 500
+        this.keyWidth = this._width / 12
 
         this.octaves = Notes.all
     }
@@ -28,8 +28,8 @@ export default class Keys extends UIObj {
         this.octave.forEach((o, i) => {
             this.ctx.beginPath()
             this.ctx.fillStyle = o.active ? '#044' : (o.note.length > 1 ? '#022' : '#033')
-            this.ctx.fillRect(this.x + i * this.keyWidth, this.y, this.keyWidth, this.keyWidth * 5)
-            this.ctx.rect(this.x + i * this.keyWidth, this.y, this.keyWidth, this.keyWidth * 5)
+            this.ctx.fillRect(this._x + i * this.keyWidth, this._y, this.keyWidth, this.keyWidth * 5)
+            this.ctx.rect(this._x + i * this.keyWidth, this._y, this.keyWidth, this.keyWidth * 5)
             this.ctx.stroke()
             this.ctx.closePath()
         })
@@ -40,7 +40,7 @@ export default class Keys extends UIObj {
         if (!this.hitBox(e.rx, e.ry) || !this.playing) return
 
         // Find out which key is being clicked
-        let note = this.octave[Math.floor((e.rx - this.x) / this.keyWidth)]
+        let note = this.octave[Math.floor((e.rx - this._x) / this.keyWidth)]
         note.active = true
         this.setNote(note)
     }
@@ -60,10 +60,6 @@ export default class Keys extends UIObj {
     resetKeys() {
         // Reset keys active states
         Tool.setAll(this.octave, 'active', false);
-    }
-
-    hitBox(x, y) {
-        return x > this.x && x < (this.x + this.width) && y > this.y && y < (this.y + this.height)
     }
 
     attach(voice) {
