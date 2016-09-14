@@ -1,5 +1,5 @@
 // CSS
-import './styles/main.scss';
+import './styles/main.scss'
 
 // External deps
 import _ from 'lodash'
@@ -12,7 +12,7 @@ import Voice from './audio/voice'
 import Keys from './ui/keys'
 import Led from './ui/led'
 import Switch from './ui/switch'
-import Oscilloscope from './ui/oscilloscope';
+import Oscilloscope from './ui/oscilloscope'
 
 // UI
 var canvas = new Canvas('canvas')

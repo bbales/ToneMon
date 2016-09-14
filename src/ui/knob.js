@@ -47,7 +47,7 @@ export default class Knob extends UIObj {
         if (_.isArray(this._snaps)) {
             this.ctx.font = '12px Arial'
             this.ctx.textAlign = 'center'
-            this.ctx.shadowColor = '#83d8ff';
+            this.ctx.shadowColor = '#83d8ff'
             for (let s of this._snaps) {
                 this.ctx.fillStyle = s.active ? '#83d8ff' : 'white'
                 this.ctx.shadowBlur = s.active ? 10 : 0
@@ -66,7 +66,7 @@ export default class Knob extends UIObj {
             // Draw active arc
             this.ctx.beginPath()
             this.ctx.shadowBlur = 10
-            this.ctx.shadowColor = '#83d8ff';
+            this.ctx.shadowColor = '#83d8ff'
             this.ctx.arc(this._x, this._y, this._radius + 5, safeMin, safeCurrent)
             this.ctx.strokeStyle = '#83d8ff'
             this.ctx.stroke()
@@ -122,7 +122,7 @@ export default class Knob extends UIObj {
 
     change(fn) {
         this._changeFn = fn
-        return this;
+        return this
     }
 
     // Handlers
@@ -166,7 +166,7 @@ export default class Knob extends UIObj {
             this.angle = closest.angle
             return
         } else {
-            this._changeFn(_.clamp((this.angle - this._min) / (this._max - this._min), 0, 1));
+            this._changeFn(_.clamp((this.angle - this._min) / (this._max - this._min), 0, 1))
         }
 
         // Snap angle

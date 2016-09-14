@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from 'lodash'
 
 export default class Tool {
     static id(len) {
@@ -7,6 +7,6 @@ export default class Tool {
     }
 
     static setAll(array, prop, value) {
-        array.map(o => _.set(o, prop, value));
+        array.map(o => _.set(o, prop, value))
     }
 }

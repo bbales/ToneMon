@@ -42,36 +42,36 @@ export default class Led extends UIObj {
     setColor(color) {
         switch (color) {
             case 'green':
-                this._color1 = 'green';
-                this._color2 = '#c5ffb7';
-                break;
+                this._color1 = 'green'
+                this._color2 = '#c5ffb7'
+                break
             case 'yellow':
-                this._color1 = '#dcec00';
-                this._color2 = '#fcff95';
-                break;
+                this._color1 = '#dcec00'
+                this._color2 = '#fcff95'
+                break
             case 'orange':
-                this._color1 = 'orange';
-                this._color2 = '#fcff95';
-                break;
+                this._color1 = 'orange'
+                this._color2 = '#fcff95'
+                break
             case 'voilet':
-                this._color1 = '#d432d4';
-                this._color2 = '#ffbbf9';
-                break;
+                this._color1 = '#d432d4'
+                this._color2 = '#ffbbf9'
+                break
             default: // 'red'
-                this._color1 = 'red';
-                this._color2 = '#ff8787';
-                break;
+                this._color1 = 'red'
+                this._color2 = '#ff8787'
+                break
         }
-        return this;
+        return this
     }
 
     on() {
         this._on = true
-        return this;
+        return this
     }
 
     off() {
         this._on = false
-        return this;
+        return this
     }
 }
