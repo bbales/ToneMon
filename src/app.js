@@ -32,9 +32,6 @@ let oScope = new Oscilloscope(canvas, actx, [v1, v2]).setPos(600, 150)
 keys.attach(v1)
 keys.attach(v2)
 
-// Switch
-new Switch(canvas, 'Test').setPos(300, 380)
-
 // OSC1
 var osc1_shape = new Knobs.ShapeKnob(canvas, v1).setPos(200, 150)
 var osc1_atk = new Knobs.AttackKnob(canvas, v1).setPos(300, 150)
