@@ -4,9 +4,9 @@ body{
     overflow:hidden;
     background-color: black;
     -webkit-user-select: none;
-}
 
-canvas{
-    z-index:5;
-    position:absolute;
+    canvas{
+        z-index:5;
+        position:absolute;
+    }
 }

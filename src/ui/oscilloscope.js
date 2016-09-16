@@ -17,7 +17,7 @@ export default class Oscilloscope extends UIObj {
         this._width = 200
         this._height = 100
 
-        // Setup and config (fft, data stuffs.)
+        // Set up scope (fft, data stuffs.)
         this._oScope = this._actx.createAnalyser()
         this._oScope.fftSize = 2048
         this._dataArray = new Uint8Array(this._oScope.frequencyBinCount)
