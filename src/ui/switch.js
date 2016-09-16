@@ -2,7 +2,7 @@ import UIObj from './uiobj'
 import Calc from '../util/calc'
 
 export default class Switch extends UIObj {
-    constructor(canvas, title, numPositions = 3) {
+    constructor(canvas, title, options, numPositions = 2, default_position = 2) {
         super(canvas)
 
         this._numPositions = numPositions
@@ -10,9 +10,9 @@ export default class Switch extends UIObj {
         this._width = 15
         this._height = 30
         this._handleHeight = this._height / this._numPositions
-        this._position = 0
         this._changeFn = _.noop
-        this._options = {
+        this._position = default_position
+        this._options = _.isObject(options) ? options : {
             on: {
                 text: 'On',
                 value: 2
@@ -46,7 +46,7 @@ export default class Switch extends UIObj {
         this.ctx.font = '12px Arial'
         this.ctx.shadowBlur = 0
         this.ctx.textAlign = 'center'
-        this.ctx.fillText(this._title, this._x + this._width / 2, this._y + 48)
+        this.ctx.fillText(this._title, this._x + this._width / 2, this._y + 59)
         this.ctx.closePath()
 
         // Draw options
@@ -101,6 +101,7 @@ export default class Switch extends UIObj {
 
     change(fn) {
         this._changeFn = fn
+        this._changeFn(this.value)
         return this
     }
 

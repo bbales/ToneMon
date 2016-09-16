@@ -29,6 +29,8 @@ export default class Voice {
         this._note = {
             freq: -1
         }
+
+        this._enabled = 1
     }
 
     setWave(wave) {
@@ -73,8 +75,8 @@ export default class Voice {
 
         // Attack
         this.vca.gain.cancelScheduledValues(this.ctx.currentTime - 1);
-        this.vca.gain.linearRampToValueAtTime(0.0005, this.ctx.currentTime)
-        this.vca.gain.linearRampToValueAtTime(0.5, this.ctx.currentTime + 0.03 + this._attack)
+        this.vca.gain.linearRampToValueAtTime(this._enabled * 0.0005, this.ctx.currentTime)
+        this.vca.gain.linearRampToValueAtTime(this._enabled * 0.5, this.ctx.currentTime + 0.03 + this._attack)
     }
 
     stop() {
@@ -83,8 +85,12 @@ export default class Voice {
 
         // Release
         this.vca.gain.cancelScheduledValues(this.ctx.currentTime - 1);
-        this.vca.gain.setValueAtTime(this.vca.gain.value, this.ctx.currentTime)
-        this.vca.gain.linearRampToValueAtTime(0.0005, this.ctx.currentTime + 0.03 + this._release)
+        this.vca.gain.setValueAtTime(this._enabled * this.vca.gain.value, this.ctx.currentTime)
+        this.vca.gain.linearRampToValueAtTime(this._enabled * 0.0005, this.ctx.currentTime + 0.03 + this._release)
+    }
+
+    enable(setting) {
+        this._enabled = setting ? 1 : 0;
     }
 
     // Full Octave Transpose

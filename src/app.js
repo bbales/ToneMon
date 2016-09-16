@@ -40,12 +40,14 @@ var osc1_shape = new Knobs.ShapeKnob(canvas, v1).setPos(200, 150)
 var osc1_atk = new Knobs.AttackKnob(canvas, v1).setPos(300, 150)
 var osc1_rel = new Knobs.ReleaseKnob(canvas, v1).setPos(400, 150)
 var osc1_octave = new Knobs.OctaveKnob(canvas, v1).setPos(500, 150)
+var osc1_enable = new Switch(canvas, 'OSC1 Enable').setPos(100, 135).change(v => v1.enable(v))
 
 // OSC2
 var osc2_shape = new Knobs.ShapeKnob(canvas, v2).setPos(200, 250)
 var osc2_atk = new Knobs.AttackKnob(canvas, v2).setPos(300, 250);
 var osc2_rel = new Knobs.ReleaseKnob(canvas, v2).setPos(400, 250);
 var osc2_octave = new Knobs.OctaveKnob(canvas, v2).setPos(500, 250)
+var osc2_enable = new Switch(canvas, 'OSC2 Enable').setPos(100, 235).change(v => v2.enable(v))
 
 // LEDs
 var colors = ['red', 'green', 'yellow', 'violet', 'orange'];
