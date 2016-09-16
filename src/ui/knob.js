@@ -6,14 +6,11 @@ export default class Knob extends UIObj {
         super(canvas)
 
         this._title = title || ''
-        this._x = 0
-        this._y = 0
         this._angle = 270
         this._radius = 50
         this._lineWidth = 2
         this._max = 360
         this._min = 0
-        this._changeFn = _.noop
     }
 
     init() {

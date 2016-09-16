@@ -6,6 +6,10 @@ export default class UIObj {
         this.canvas = canvas
         this.ctx = canvas.ctx
         this.canvas.objs.push(this)
+
+        this._changeFn = _.noop
+        this._x = 0
+        this._y = 0
     }
 
     remove() {

@@ -18,18 +18,17 @@ export default class Oscilloscope extends UIObj {
         this._height = 100
 
         // Setup and config (fft, data stuffs.)
-        this.oScope = this._actx.createAnalyser()
-        this.oScope.fftSize = 2048
-        this._bufferLength = this.oScope.frequencyBinCount
-        this._dataArray = new Uint8Array(this._bufferLength)
-        this.oScope.getByteTimeDomainData(this._dataArray)
+        this._oScope = this._actx.createAnalyser()
+        this._oScope.fftSize = 2048
+        this._dataArray = new Uint8Array(this._oScope.frequencyBinCount)
 
         // loop through the voices and connect to the scope.
-        voices.forEach(voice => voice.connectOscilloscope(this.oScope))
+        voices.forEach(voice => voice.connectOscilloscope(this._oScope))
     }
 
     draw() {
-        this.oScope.getByteTimeDomainData(this._dataArray)
+        // Get time domain data
+        this._oScope.getByteTimeDomainData(this._dataArray)
 
         // the style of the osc.
         this.ctx.fillStyle = 'rgb(10, 200, 200)'
@@ -39,11 +38,11 @@ export default class Oscilloscope extends UIObj {
 
         this.ctx.beginPath()
 
-        this.sliceWidth = this._width * 1.0 / this._bufferLength
+        this.sliceWidth = this._width * 1.0 / this._oScope.frequencyBinCount
         this.sliceX = 0
 
         // draw the osc from moment to moment.
-        for (let i = 0; i < this._bufferLength; i++) {
+        for (let i = 0; i < this._oScope.frequencyBinCount; i++) {
             let sliceY = (this._dataArray[i] / (128.0)) * this._height / 2
             this.ctx[i ? 'lineTo' : 'moveTo'](this._x + this.sliceX, this._y + sliceY)
             this.sliceX += this.sliceWidth

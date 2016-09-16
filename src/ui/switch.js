@@ -10,8 +10,8 @@ export default class Switch extends UIObj {
         this._width = 15
         this._height = 30
         this._handleHeight = this._height / this._numPositions
-        this._changeFn = _.noop
         this._position = default_position
+
         this._options = _.isObject(options) ? options : {
             on: {
                 text: 'On',

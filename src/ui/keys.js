@@ -5,14 +5,10 @@ import Tool from '../util/tool'
 export default class Keys extends UIObj {
     constructor(canvas) {
         super(canvas)
-        this.otype = 'keys'
 
         this.voices = []
         this.octaveIndex = 3
         this.lineWidth = 1
-
-        this._x = 200
-        this._y = 500
 
         this._height = 100
         this._width = 500

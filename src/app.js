@@ -16,7 +16,7 @@ import Oscilloscope from './ui/oscilloscope'
 
 // UI
 var canvas = new Canvas('canvas')
-var keys = new Keys(canvas)
+var keys = new Keys(canvas).setPos(200, 500)
 
 // Audio
 var actx = new window.AudioContext()
