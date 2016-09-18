@@ -6,6 +6,7 @@ export default class Canvas {
         this.ctx = this.elem.getContext('2d')
         this.ctx.translate(0.5, 0.5)
 
+        // Array of all UiObj's on the canvas
         this.objs = []
 
         // Event capturing

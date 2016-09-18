@@ -9,16 +9,19 @@ export default class ShapeKnob extends Knob {
         this.change(value => voice.setWave(value))
         this.setSnaps([{
             text: '◻',
+            default: (voice._wave == 'square'),
             value: 'square'
         }, {
             text: '∿',
+            default: (voice._wave == 'sine'),
             value: 'sine'
         }, {
             text: '△',
-            default: true,
+            default: (voice._wave == 'triangle'),
             value: 'triangle'
         }, {
             text: '◺',
+            default: (voice._wave == 'sawtooth'),
             value: 'sawtooth'
         }])
     }

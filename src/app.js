@@ -22,8 +22,8 @@ var keys = new Keys(canvas).setPos(200, 500)
 var actx = new window.AudioContext()
 
 // Synth voice(s)
-var v1 = new Voice(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(0)
-var v2 = new Voice(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.001).setOctave(0)
+var v1 = new Voice(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(1)
+var v2 = new Voice(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.001).setOctave(3)
 
 // Create the oscilloscope
 let oScope = new Oscilloscope(canvas, actx, [v1, v2]).setPos(600, 150)
