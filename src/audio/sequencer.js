@@ -1,13 +1,9 @@
-import Tool from '../util/tool'
 import Notes from './notes'
+import AudioObj from './audioobj'
 
-export default class Sequencer {
+export default class Sequencer extends AudioObj {
     constructor(actx, name) {
-        this.id = Tool.id()
-        this._name = name;
-
-        // AudioContext
-        this.ctx = actx
+        super(actx, name)
 
         // Voice array
         this_.voices = []

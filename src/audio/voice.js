@@ -1,14 +1,10 @@
-import Tool from '../util/tool'
 import Notes from './notes'
+import AudioObj from './audioobj'
 import OscScope from '../ui/oscilloscope';
 
-export default class Voice {
+export default class Voice extends AudioObj {
     constructor(actx, name) {
-        this.id = Tool.id()
-        this._name = name;
-
-        // AudioContext
-        this.ctx = actx
+        super(actx, name)
 
         // Main oscillator
         this.osc = actx.createOscillator()

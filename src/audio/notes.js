@@ -33,7 +33,6 @@ export default class Notes {
                 })
             })
 
-
             return octaves
 
             // Get frequency with reference to middle C

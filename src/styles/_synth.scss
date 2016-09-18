@@ -33,5 +33,13 @@ synth{
         background-size: 600% 200%;
         box-shadow: 0px 0px 10px #101010;
         border-radius:2px;
+
+        &:last-of-type{
+            right:0px;
+        }
+
+        &:first-of-type{
+            left:0px;
+        }
     }
 }

@@ -2,7 +2,7 @@ import Calc from '../util/calc'
 
 export default class Canvas {
     constructor(id) {
-        this.elem = document.getElementById(id)
+        this.elem = document.querySelector('canvas')
         this.ctx = this.elem.getContext('2d')
         this.ctx.translate(0.5, 0.5)
 
@@ -17,6 +17,9 @@ export default class Canvas {
 
         // Start draw loop
         setInterval(() => this.redraw(), 1000 / 24)
+
+        // Set to default size
+        this.setSize(800, 600)
     }
 
     width() {
@@ -25,6 +28,11 @@ export default class Canvas {
 
     height() {
         return this.elem.height
+    }
+
+    setSize(width, height) {
+        this.elem.height = height
+        this.elem.width = width
     }
 
     mousedownHandler(e) {
