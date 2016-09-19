@@ -9,10 +9,13 @@ import './util/protos'
 import * as Knobs from './ui/knobs/knobs'
 import Canvas from './ui/canvas'
 import Voice from './audio/voice'
+import Sequencer from './audio/sequencer'
 import Keys from './ui/keys'
 import Led from './ui/led'
 import Switch from './ui/switch'
 import Oscilloscope from './ui/oscilloscope'
+
+import Notes from './audio/notes'
 
 // UI
 var canvas = new Canvas('canvas')
@@ -24,6 +27,17 @@ var actx = new window.AudioContext()
 // Synth voice(s)
 var v1 = new Voice(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(1)
 var v2 = new Voice(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.001).setOctave(3)
+
+let sequencer = new Sequencer().connect(v1).setBPM(150).play()
+
+sequencer.writeNote(Notes.all[5][2], 0)
+sequencer.writeNote(Notes.all[5][6], 1)
+sequencer.writeNote(Notes.all[5][6], 2)
+sequencer.writeNote(Notes.all[5][9], 3)
+sequencer.writeNote(Notes.all[5][10], 4)
+sequencer.writeNote(Notes.all[5][10], 5)
+sequencer.writeNote(Notes.all[5][10], 6)
+sequencer.writeNote(Notes.all[5][10], 7)
 
 // Create the oscilloscope
 let oScope = new Oscilloscope(canvas, actx, [v1, v2]).setPos(600, 150)
