@@ -9,6 +9,9 @@ export default class Led extends UIObj {
     }
 
     draw() {
+        // If check function has been set, run it to check status
+        if (_.isFunction(this._checkFn)) this._on = this._checkFn()
+
         // Setup
         this.ctx.lineWidth = 2
         this.ctx.strokeStyle = 'black'
@@ -26,9 +29,9 @@ export default class Led extends UIObj {
 
         // Create glow
         let grd = this.ctx.createRadialGradient(this._x, this._y, 2, this._x + 2, this._y + 2, 5)
-        grd.addColorStop(1, this._on ? '#212121' : this._color1)
-        grd.addColorStop(0, this._on ? '#5a5a5a' : this._color2)
-        this.ctx.shadowColor = this._on ? '#5a5a5a' : this._color1
+        grd.addColorStop(1, !this._on ? '#212121' : this._color1)
+        grd.addColorStop(0, !this._on ? '#5a5a5a' : this._color2)
+        this.ctx.shadowColor = !this._on ? '#5a5a5a' : this._color1
         this.ctx.fillStyle = grd
 
         this.ctx.beginPath()
@@ -63,6 +66,10 @@ export default class Led extends UIObj {
                 break
         }
         return this
+    }
+
+    check(fn) {
+        this._checkFn = fn
     }
 
     on() {

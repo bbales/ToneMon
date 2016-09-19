@@ -48,6 +48,17 @@ export default class Notes {
         return _.cloneDeep(_noteArray)
     }
 
+    static note(str, octave = 0) {
+        // example: c5 or cs3
+        if ((_.includes(str, 's') && str.length == 3) || (!_.includes(str, 's') && str.length == 2)) {
+            octave = parseInt(str[str.length - 1])
+            str = str.substring(0, str.length - 1)
+        }
+        return _.find(_noteArray[octave], {
+            'note': str
+        })
+    }
+
     static transpose(note, delta) {
         // Find note in flattened array
         let i = _.findIndex(_flatArray, {

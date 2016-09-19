@@ -28,16 +28,16 @@ var actx = new window.AudioContext()
 var v1 = new Voice(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(1)
 var v2 = new Voice(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.001).setOctave(3)
 
-let sequencer = new Sequencer().connect(v1).setBPM(150).play()
+var sequencer = new Sequencer().connect(v1).connect(v2).setBPM(190).play()
 
-sequencer.writeNote(Notes.all[5][2], 0)
-sequencer.writeNote(Notes.all[5][6], 1)
-sequencer.writeNote(Notes.all[5][6], 2)
-sequencer.writeNote(Notes.all[5][9], 3)
-sequencer.writeNote(Notes.all[5][10], 4)
-sequencer.writeNote(Notes.all[5][10], 5)
-sequencer.writeNote(Notes.all[5][10], 6)
-sequencer.writeNote(Notes.all[5][10], 7)
+sequencer.writeNote(Notes.note('c5'), 0)
+sequencer.writeNote(Notes.note('c4'), 1)
+sequencer.writeNote(Notes.note('c6'), 2)
+sequencer.writeNote(Notes.note('c5'), 3)
+sequencer.writeNote(Notes.note('c4'), 4)
+sequencer.writeNote(Notes.note('c6'), 5)
+sequencer.writeNote(Notes.note('c5'), 6)
+sequencer.writeNote(Notes.note('c4'), 7)
 
 // Create the oscilloscope
 let oScope = new Oscilloscope(canvas, actx, [v1, v2]).setPos(600, 150)
@@ -62,8 +62,12 @@ var osc2_enable = new Switch(canvas, 'OSC2 Enable').setPos(100, 235).change(v =>
 
 // LEDs
 var colors = ['red', 'green', 'yellow', 'violet', 'orange'];
-for (var i = 0; i < 5; i++) {
+for (var i = 0; i < 8; i++) {
     var led1 = new Led(canvas)
     led1.setPos(200 + 55 * i, 50)
     led1.setColor(colors[i])
+    let index = i
+    led1.check(function() {
+        return sequencer._currentStep == index
+    })
 }

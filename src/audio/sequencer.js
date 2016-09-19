@@ -60,7 +60,6 @@ export default class Sequencer {
     // Write a note at a step
     writeNote(note, step) {
         this.seq._data[step] = note
-        console.log(this.seq)
         return this
     }
 
