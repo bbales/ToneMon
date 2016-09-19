@@ -69,7 +69,6 @@ for (var i = 0; i < 8; i++) {
     var led1_octave = new Knob(canvas, 'Step' + (i + 1) + ' Note').setPos(200 + 65 * i, 450).setRadius(10)
 
     var led1_note = new Knob(canvas, 'Step' + (i + 1) + ' Octave').setPos(200 + 65 * i, 540).setRadius(10).change(value => {
-        console.log(Notes.note(value))
         sequencer.writeNote(Notes.note(value, 5), index)
     }).setSnaps([{
         value: 'a',
