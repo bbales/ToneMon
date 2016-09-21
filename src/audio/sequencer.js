@@ -76,6 +76,10 @@ export default class Sequencer {
         if (!_.isObject(this._seq[this._currentSequenceNum])) this._seq[this._currentSequenceNum] = new Sequence(this._length)
         return this._seq[this._currentSequenceNum]
     }
+
+    noteAtStep(step) {
+        return this.seq[step]
+    }
 }
 
 class Sequence {

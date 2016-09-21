@@ -54,9 +54,12 @@ export default class Notes {
             octave = parseInt(str[str.length - 1])
             str = str.substring(0, str.length - 1)
         }
-        return _.find(_noteArray[octave], {
+        let note = _.find(_noteArray[octave], {
             'note': str
         })
+
+        note.octave = octave
+        return note
     }
 
     static transpose(note, delta) {
