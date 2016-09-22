@@ -23,7 +23,6 @@ import Midi from './midi/index.js';
 var midiBox = new Midi();
 
 midiBox.boot();
-console.log(midiBox);
 
 // UI
 var canvas = new Canvas('canvas')

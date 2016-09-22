@@ -1,3 +1,6 @@
+// import Notes from '../audio/voice';
+import Voice from '../audio/voice';
+
 export default class Midi {
   constructor(){
   }
@@ -12,7 +15,6 @@ export default class Midi {
     }
   }
 
-
   init(midiAccess) {
     console.log(midiAccess)
     const midi = midiAccess;
@@ -22,8 +24,14 @@ export default class Midi {
       input.value.onmidimessage = this.onMIDIMessage;
     }
   }
-
+  // this has to connect to the OSC's somehow.
   onMIDIMessage(m) {
+    let cmd, channel, type, note, velocity;
+    cmd = m.data[0] >> 4,
+    channel = m.data[0] & 0xF,
+    type = m.data[0] & 0xf0,
+    note = m.data[1],
+    velocity = m.data[2];
     console.log('midi data:', m.data )
   }
 
