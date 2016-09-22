@@ -19,6 +19,11 @@ import Oscilloscope from './ui/oscilloscope'
 import Notes from './audio/notes'
 Notes.all
 
+import Midi from './midi/index.js';
+var midiBox = new Midi();
+
+midiBox.boot();
+
 // UI
 var canvas = new Canvas('canvas')
     // var keys = new Keys(canvas).setPos(200, 500)
