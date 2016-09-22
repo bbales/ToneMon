@@ -20,8 +20,8 @@ export default class Sequencer {
     // Set bpm
     setBPM(bpm) {
         this._bpm = bpm;
-        this.stop()
-        this.play()
+        clearInterval(this._interval)
+        this._interval = setInterval(() => this.advanceSeq(), 60 * 1000 / this._bpm)
         return this
     }
 
@@ -41,6 +41,7 @@ export default class Sequencer {
     // Stop sequencer
     stop() {
         clearInterval(this._interval)
+        this._voices.map(o => o.stop())
         return this
     }
 
@@ -74,6 +75,10 @@ export default class Sequencer {
     get seq() {
         if (!_.isObject(this._seq[this._currentSequenceNum])) this._seq[this._currentSequenceNum] = new Sequence(this._length)
         return this._seq[this._currentSequenceNum]
+    }
+
+    noteAtStep(step) {
+        return this.seq[step]
     }
 }
 

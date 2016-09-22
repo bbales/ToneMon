@@ -42,14 +42,19 @@ export default class Knob extends UIObj {
 
         // Draw text
         if (_.isArray(this._snaps)) {
-            this.ctx.font = '12px Arial'
+            this.ctx.font = this._radius < 20 ? '10px Arial' : '12px Arial'
+            this.ctx.textBaseline = "middle"
             this.ctx.textAlign = 'center'
             this.ctx.shadowColor = '#83d8ff'
             for (let s of this._snaps) {
                 this.ctx.fillStyle = s.active ? '#83d8ff' : 'white'
                 this.ctx.shadowBlur = s.active ? 10 : 0
                 let safeAngle = Calc.nd2r(s.angle)
-                this.ctx.fillText(s.text, this._x + (16 + this._radius) * Math.cos(safeAngle), this._y + (16 + this._radius) * Math.sin(safeAngle))
+                if (this._radius <= 15) {
+                    this.ctx.fillText(s.text, this._x + (10 + this._radius) * Math.cos(safeAngle), this._y + (10 + this._radius) * Math.sin(safeAngle))
+                } else {
+                    this.ctx.fillText(s.text, this._x + (16 + this._radius) * Math.cos(safeAngle), this._y + (16 + this._radius) * Math.sin(safeAngle))
+                }
             }
             this.ctx.shadowBlur = 0
         } else {
@@ -92,10 +97,14 @@ export default class Knob extends UIObj {
         return Calc.hyp(deltax, deltay) <= (this._radius + this._lineWidth)
     }
 
-    setSnaps(arr, showText) {
+    setSnaps(arr, defaultValue, showText) {
         if (!_.isArray(arr)) throw ('setSnaps argument must be an array')
         this._snapsShowText = showText || true
         this._snaps = arr
+
+        if (defaultValue) _.find(this._snaps, {
+            value: defaultValue
+        }).default = true
 
         if (!this._snaps[0].angle) this._snaps.forEach((s, i) => {
             s.angle = this._min + i * (this._max - this._min) / this._snaps.length
