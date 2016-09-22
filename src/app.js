@@ -23,6 +23,7 @@ import Midi from './midi/index.js';
 var midiBox = new Midi();
 
 midiBox.boot();
+console.log(midiBox);
 
 // UI
 var canvas = new Canvas('canvas')
@@ -69,8 +70,9 @@ var osc2_enable = new Switch(canvas, 'OSC2 Enable').setPos(100, 155).change(v =>
 
 // Sequencer enable
 var seq_enable = new Switch(canvas, 'Seq Enable').setPos(100, 300).change(v => {
-    sequencer[v ? 'play' : 'stop']()
+    sequencer[v ? 'stop' : 'play']()
 })
+
 var seq_bpm = new Knob(canvas, 'BPM').setPos(200, 300).setRadius(10).setMinMax(30, 330).change(v => {
     sequencer.setBPM(v * 300)
 })
@@ -78,7 +80,7 @@ var seq_bpm = new Knob(canvas, 'BPM').setPos(200, 300).setRadius(10).setMinMax(3
 // LEDs
 var colors = ['red', 'green', 'yellow', 'violet', 'orange'];
 for (var i = 0; i < 8; i++) {
-    // Sandbox index
+   // Sandbox index
     let index = i
     var led1 = new Led(canvas)
         // var led1_octave = new Knob(canvas, 'Step' + (i + 1) + ' Note').setPos(200 + 65 * i, 450).setRadius(10)
