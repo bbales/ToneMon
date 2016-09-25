@@ -174,7 +174,8 @@ export default class Knob extends UIObj {
             this.angle = closest.angle
             return
         } else {
-            this._changeFn(_.clamp((this.angle - this._min) / (this._max - this._min), 0, 1))
+            this._valuePercent = _.clamp((this.angle - this._min) / (this._max - this._min), 0, 1)
+            this._changeFn(this._valuePercent)
         }
 
         // Snap angle
@@ -198,5 +199,10 @@ export default class Knob extends UIObj {
 
     set angle(a) {
         this._angle = (a > 180) ? a - 360 : a
+    }
+
+    setValue(value) {
+        this.angle = (this._max - this._min) * value + this._min
+        this._changeFn(value)
     }
 }

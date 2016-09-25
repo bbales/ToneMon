@@ -21,7 +21,7 @@ export default class Sequencer {
     setBPM(bpm) {
         this._bpm = bpm;
         clearInterval(this._interval)
-        this._interval = setInterval(() => this.advanceSeq(), 60 * 1000 / this._bpm)
+        this._interval = setInterval(() => this._advanceSeq(), 60 * 1000 / this._bpm)
         return this
     }
 
@@ -34,7 +34,7 @@ export default class Sequencer {
     // Start sequencer
     play() {
         clearInterval(this._interval)
-        this._interval = setInterval(() => this.advanceSeq(), 60 * 1000 / this._bpm)
+        this._interval = setInterval(() => this._advanceSeq(), 60 * 1000 / this._bpm)
         return this
     }
 
@@ -46,7 +46,7 @@ export default class Sequencer {
     }
 
     // Move current step pointer to next available step
-    advanceSeq() {
+    _advanceSeq() {
         let note = this.seq.getNote(this._currentStep)
         if (note && this._prevNote && note.freq !== this._prevNote.freq) this._voices.map(o => o.stop())
         if (note) {

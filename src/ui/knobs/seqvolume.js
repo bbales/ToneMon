@@ -2,11 +2,14 @@ import Knob from '../knob'
 import Notes from '../../audio/notes'
 
 export default class SequencerVolumeKnob extends Knob {
-    constructor(canvas, sequencer, step) {
+    constructor(canvas, sequencer, step, value = 1) {
         super(canvas, 'Volume')
-        this.setRadius(15)
+        this.setMinMax(30, 330)
+        this.setValue(value)
+        this.setRadius(10)
+        this._titleY = 30
         this.change(v => {
-            sequencer.seq.setNote(step, Notes.note(v, sequencer.seq.getNote(step).octave))
+            sequencer.seq.setVolume(step, v)
         })
     }
 }

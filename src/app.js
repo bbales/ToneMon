@@ -6,7 +6,7 @@ import _ from 'lodash'
 
 // Local deps
 import './util/protos'
-import * as Knobs from './ui/knobs/knobs'
+import * as Knobs from './ui/knobs/'
 import Knob from './ui/knob'
 import Canvas from './ui/canvas'
 import Voice from './audio/voice'
@@ -70,10 +70,9 @@ seq_bpm._titleY = 22
 // LEDs
 var colors = ['red', 'green', 'yellow', 'violet', 'orange'];
 _.times(8, (i) => {
-    // Sandbox index
     var led1 = new Led(canvas).setPos(200 + 65 * i, 410).setColor(colors[i])
-        // var led1_octave = new Knob(canvas, 'Step' + (i + 1) + ' Note').setPos(200 + 65 * i, 450).setRadius(10)
-    var led1_octave = new Knobs.SequencerNoteKnob(canvas, sequencer, i, 5).setPos(200 + 65 * i, 475)
+    var volume_knob = new Knobs.SequencerVolumeKnob(canvas, sequencer, i).setPos(200 + 65 * i, 550)
+    var note_knob = new Knobs.SequencerNoteKnob(canvas, sequencer, i, 5).setPos(200 + 65 * i, 475)
 
     // Assign check function
     led1.check(() => {
