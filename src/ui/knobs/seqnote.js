@@ -3,7 +3,7 @@ import Notes from '../../audio/notes'
 
 export default class SequencerNoteKnob extends Knob {
     constructor(canvas, sequencer, step, octave = 5) {
-        super(canvas, 'Note ' + (step + 1))
+        super(canvas, 'Step ' + (step + 1))
         let defaultNote = sequencer.seq._data[step]
         this.setRadius(15)
         this.change(v => {

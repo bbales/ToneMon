@@ -43,7 +43,7 @@ export default class Knob extends UIObj {
         // Draw text
         if (_.isArray(this._snaps)) {
             this.ctx.font = this._radius < 20 ? '10px Arial' : '12px Arial'
-            this.ctx.textBaseline = "middle"
+            this.ctx.textBaseline = 'middle'
             this.ctx.textAlign = 'center'
             this.ctx.shadowColor = '#83d8ff'
             for (let s of this._snaps) {
@@ -83,8 +83,10 @@ export default class Knob extends UIObj {
         }
 
         // Draw title
+        this.ctx.textBaseline = 'middle'
+        this.ctx.textAlign = 'center'
         this.ctx.fillStyle = 'white'
-        this.ctx.fillText(this._title, this._x, this._y + 44)
+        this.ctx.fillText(this._title, this._x + (this._titleX ? this._titleX : 0), this._y + (this._titleY ? this._titleY : 44))
         this.ctx.closePath()
     }
 
