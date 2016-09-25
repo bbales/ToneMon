@@ -32,14 +32,14 @@ var v2 = new Voice(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.00
 
 var sequencer = new Sequencer().connect(v1).connect(v2).setBPM(200).play()
 
-sequencer.writeNote(Notes.note('a5'), 0)
-sequencer.writeNote(Notes.note('b4'), 1)
-sequencer.writeNote(Notes.note('c6'), 2)
-sequencer.writeNote(Notes.note('d5'), 3)
-sequencer.writeNote(Notes.note('e4'), 4)
-sequencer.writeNote(Notes.note('f6'), 5)
-sequencer.writeNote(Notes.note('g5'), 6)
-sequencer.writeNote(Notes.note('a4'), 7)
+sequencer.seq.setNote(0, Notes.note('a5'))
+sequencer.seq.setNote(1, Notes.note('b4'))
+sequencer.seq.setNote(2, Notes.note('c6'))
+sequencer.seq.setNote(3, Notes.note('d5'))
+sequencer.seq.setNote(4, Notes.note('e4'))
+sequencer.seq.setNote(5, Notes.note('f6'))
+sequencer.seq.setNote(6, Notes.note('g5'))
+sequencer.seq.setNote(7, Notes.note('a4'))
 
 // Create the oscilloscope
 let oScope = new Oscilloscope(canvas, actx, [v1, v2]).setPos(600, 80)

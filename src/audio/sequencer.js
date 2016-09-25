@@ -46,7 +46,7 @@ export default class Sequencer {
     }
 
     advanceSeq() {
-        let note = this.seq._data[this._currentStep]
+        let note = this.seq.getNote(this._currentStep)
         if (note && this._prevNote && note.freq !== this._prevNote.freq) this._voices.map(o => o.stop())
         if (note) {
             this._voices.map(o => o.setNote(note))
@@ -56,12 +56,6 @@ export default class Sequencer {
         this._currentStep++
             if (this._currentStep >= this._length) this._currentStep = 0
         this._prevNote = note
-    }
-
-    // Write a note at a step
-    writeNote(note, step) {
-        this.seq._data[step] = note
-        return this
     }
 
     // Set the current sequence
@@ -77,25 +71,39 @@ export default class Sequencer {
         return this._seq[this._currentSequenceNum]
     }
 
-    noteAtStep(step) {
-        return this.seq[step]
-    }
 }
 
 class Sequence {
     constructor(len) {
         this._length = len
-        this._data = [];
-
-        // Fill with empty notes
-        for (let i = 0; i < this._length; i++) this._data.push(false);
+        this._data = []
+        for (let i = 0; i < this._length; i++) this._data.push({})
     }
 
-    setNote(note, step) {
-        this._data[step] = note
+    // Set note at step in sequence
+    setNote(step, note) {
+        console.log(step)
+        this._data[step].note = note
     }
 
+    // Set volume of note at step in sequence
+    setVolume(step, volume) {
+        this._data[step].volume = volume
+    }
+
+    // Clear note and volume at step in sequence
     clearNote(step) {
-        this._data[step] = false
+        delete this._data[step].note
+        delete this._data[step].volume
+    }
+
+    // Get the note data at a given step
+    getNote(step) {
+        return this._data[step].note
+    }
+
+    // Get the volume data at a given step
+    getVolume(step) {
+        return this._data[step].volume
     }
 }
