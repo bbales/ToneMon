@@ -12,10 +12,7 @@ export default class Notes {
         }
 
         // Generate note frequency pairs, should only be run once
-        function _genOctaves(num) {
-            // Default to 6 octaves
-            num = num || 6
-
+        function _genOctaves(num = 6) {
             // Lettered notes
             const notes = ['a', 'as', 'b', 'c', 'cs', 'd', 'ds', 'e', 'f', 'fs', 'g', 'gs']
 
@@ -26,19 +23,12 @@ export default class Notes {
             for (var octaves = []; octaves.push([]) < num;);
 
             // Generate notes in each octave
-            octaves.forEach((octave, i) => {
-                for (let j = 0; j < 12; j++) octave.push({
-                    'note': notes[j],
-                    'freq': step((i - num / 2) * 12 + j)
-                })
-            })
+            octaves.forEach((octave, i) => _.times(12, (j) => octave.push({
+                'note': notes[j],
+                'freq': Math.round(440 * Math.pow(a, (i - num / 2) * 12 + j))
+            })))
 
             return octaves
-
-            // Get frequency with reference to middle C
-            function step(n) {
-                return Math.round(440 * Math.pow(a, n))
-            }
         }
     }
 

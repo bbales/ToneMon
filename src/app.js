@@ -63,28 +63,20 @@ var osc2_octave = new Knobs.OctaveKnob(canvas, v2).setPos(500, 170)
 var osc2_enable = new Switch(canvas, 'OSC2 Enable').setPos(100, 155).change(v => v2.enable(v))
 
 // Sequencer enable
-var seq_enable = new Switch(canvas, 'Seq Enable').setPos(100, 400).change(v => {
-    sequencer[v ? 'play' : 'stop']()
-})
-var seq_bpm = new Knob(canvas, 'BPM').setPos(107, 500).setRadius(10).setMinMax(30, 330).change(v => {
-    sequencer.setBPM(v * 300)
-})
+var seq_enable = new Switch(canvas, 'Seq Enable').setPos(100, 400).change(v => sequencer[v ? 'play' : 'stop']())
+var seq_bpm = new Knob(canvas, 'BPM').setPos(107, 500).setRadius(10).setMinMax(30, 330).change(v => sequencer.setBPM(v * 300))
 seq_bpm._titleY = 22
 
 // LEDs
 var colors = ['red', 'green', 'yellow', 'violet', 'orange'];
-for (var i = 0; i < 8; i++) {
+_.times(8, (i) => {
     // Sandbox index
-    let index = i
-    var led1 = new Led(canvas)
+    var led1 = new Led(canvas).setPos(200 + 65 * i, 410).setColor(colors[i])
         // var led1_octave = new Knob(canvas, 'Step' + (i + 1) + ' Note').setPos(200 + 65 * i, 450).setRadius(10)
-    var led1_octave = new Knobs.SequencerNoteKnob(canvas, sequencer, index, 5).setPos(200 + 65 * i, 475)
-    led1.setPos(200 + 65 * i, 410)
-    led1.setColor(colors[i])
-
+    var led1_octave = new Knobs.SequencerNoteKnob(canvas, sequencer, i, 5).setPos(200 + 65 * i, 475)
 
     // Assign check function
     led1.check(() => {
-        return sequencer._currentStep == index
+        return sequencer._currentStep == i
     })
-}
+})

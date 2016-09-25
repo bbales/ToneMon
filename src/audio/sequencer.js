@@ -45,6 +45,7 @@ export default class Sequencer {
         return this
     }
 
+    // Move current step pointer to next available step
     advanceSeq() {
         let note = this.seq.getNote(this._currentStep)
         if (note && this._prevNote && note.freq !== this._prevNote.freq) this._voices.map(o => o.stop())
@@ -53,8 +54,7 @@ export default class Sequencer {
             this._voices.map(o => o.play())
         }
 
-        this._currentStep++
-            if (this._currentStep >= this._length) this._currentStep = 0
+        if (++this._currentStep >= this._length) this._currentStep = 0
         this._prevNote = note
     }
 
@@ -70,14 +70,12 @@ export default class Sequencer {
         if (!_.isObject(this._seq[this._currentSequenceNum])) this._seq[this._currentSequenceNum] = new Sequence(this._length)
         return this._seq[this._currentSequenceNum]
     }
-
 }
 
 class Sequence {
     constructor(len) {
         this._length = len
-        this._data = []
-        for (let i = 0; i < this._length; i++) this._data.push({})
+        for (this._data = []; this._data.push([]) < this._length;);
     }
 
     // Set note at step in sequence
