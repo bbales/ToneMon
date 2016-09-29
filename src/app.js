@@ -15,6 +15,7 @@ import Keys from './ui/keys'
 import Led from './ui/led'
 import Switch from './ui/switch'
 import Oscilloscope from './ui/oscilloscope'
+import Label from './ui/label'
 
 import Notes from './audio/notes'
 Notes.all
