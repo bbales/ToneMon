@@ -32,17 +32,6 @@ var actx = new window.AudioContext()
 var v1 = new Voice(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(1)
 var v2 = new Voice(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.001).setOctave(3)
 
-var sequencer = new Sequencer().connect(v1).connect(v2).setBPM(200)
-
-sequencer.seq.setNote(0, Notes.note('a5'))
-sequencer.seq.setNote(1, Notes.note('b4'))
-sequencer.seq.setNote(2, Notes.note('c6'))
-sequencer.seq.setNote(3, Notes.note('d5'))
-sequencer.seq.setNote(4, Notes.note('e4'))
-sequencer.seq.setNote(5, Notes.note('f6'))
-sequencer.seq.setNote(6, Notes.note('g5'))
-sequencer.seq.setNote(7, Notes.note('a4'))
-
 // Create the oscilloscope
 let oScope = new Oscilloscope(canvas, actx, [v1, v2]).setPos(600, 80)
 
@@ -64,15 +53,27 @@ var osc2_rel = new Knobs.ReleaseKnob(canvas, v2).setPos(400, 170);
 var osc2_octave = new Knobs.OctaveKnob(canvas, v2).setPos(500, 170)
 var osc2_enable = new Switch(canvas, 'OSC2 Enable').setPos(100, 155).change(v => v2.enable(v))
 
+// Sequencer
+var sequencer = new Sequencer().connect(v1).connect(v2).setBPM(200)
+
+// Default notes
+sequencer.seq.setNote(0, Notes.note('a5'))
+sequencer.seq.setNote(1, Notes.note('b4'))
+sequencer.seq.setNote(2, Notes.note('c6'))
+sequencer.seq.setNote(3, Notes.note('d5'))
+sequencer.seq.setNote(4, Notes.note('e4'))
+sequencer.seq.setNote(5, Notes.note('f6'))
+sequencer.seq.setNote(6, Notes.note('g5'))
+sequencer.seq.setNote(7, Notes.note('a4'))
+
 // Sequencer enable
 var seq_enable = new Switch(canvas, 'Seq Enable').setPos(100, 400).setDefault(0).change(v => sequencer[v ? 'play' : 'stop']())
-var seq_bpm = new Knob(canvas, 'BPM').setPos(107, 500).setRadius(10).setMinMax(30, 330).change(v => sequencer.setBPM(v * 300))
-seq_bpm._titleY = 22
+var seq_bpm = new Knob(canvas, 'BPM').setPos(107, 500).setRadius(10).setTitleY(22).setMinMax(30, 330).change(v => sequencer.setBPM(v * 300))
 
 // LEDs
 var colors = ['red', 'green', 'yellow', 'violet', 'orange'];
 _.times(8, (i) => {
-    var led1 = new Led(canvas).setPos(200 + 65 * i, 410).setColor(colors[i])
+    var led1 = new Led(canvas).setPos(200 + 65 * i, 410).setColor('red')
     var volume_knob = new Knobs.SequencerVolumeKnob(canvas, sequencer, i).setPos(200 + 65 * i, 550)
     var note_knob = new Knobs.SequencerNoteKnob(canvas, sequencer, i, 5).setPos(200 + 65 * i, 475)
 

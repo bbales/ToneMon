@@ -29,34 +29,24 @@ export default class Switch extends UIObj {
         }
 
         // Title label
-        this.titleLabel = new Label(canvas, this._t).dynamicText(() => {
+        this.titleLabel = new Label(canvas).setOffset(this, this._width / 2, 59).dynamicText(() => {
             return this._title
         })
 
         // On Label
-        this.onLabel = new Label(canvas).setSize(8).dynamicText(() => {
+        this.onLabel = new Label(canvas).setSize(8).setOffset(this, this._width + 10, this._y).dynamicText(() => {
             return this._options.on.text
         })
 
-
         // Middle Label
-        this.middleLabel = new Label(canvas).setSize(8).dynamicText(() => {
+        this.middleLabel = new Label(canvas).setSize(8).setOffset(this, this._width + 10, this._height / 2 + 2).dynamicText(() => {
             return this._options.mid.text
         })
 
         // Off Label
-        this.offLabel = new Label(canvas).setSize(8).dynamicText(() => {
+        this.offLabel = new Label(canvas).setSize(8).setOffset(this, this._width + 10, this._height + 5).dynamicText(() => {
             return this._options.off.text
         })
-    }
-
-    setPos(x, y) {
-        super.setPos(x, y)
-        this.titleLabel.setPos(this._x + this._width / 2, this._y + 59)
-        this.onLabel.setPos(this._x + this._width + 10, this._y)
-        this.middleLabel.setPos(this._x + this._width + 10, this._y + this._height / 2 + 2)
-        this.offLabel.setPos(this._x + this._width + 10, this._y + this._height + 5)
-        return this
     }
 
     draw() {

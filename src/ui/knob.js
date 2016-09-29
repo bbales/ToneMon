@@ -1,16 +1,23 @@
 import UIObj from './uiobj'
+import Label from './label'
 import Calc from '../util/calc'
 
 export default class Knob extends UIObj {
-    constructor(canvas, title) {
+    constructor(canvas, title = '') {
         super(canvas)
 
-        this._title = title || ''
+        this._title = title
         this._angle = 270
         this._radius = 50
         this._lineWidth = 2
         this._max = 360
         this._min = 0
+        this._titleY = 44
+
+        // Title label
+        this.titleLabel = new Label(canvas).setColor('#fff').setOffset(this, 0, this._titleY).dynamicText(() => {
+            return this._title
+        })
     }
 
     init() {
@@ -32,6 +39,7 @@ export default class Knob extends UIObj {
         this.ctx.beginPath()
         this.ctx.moveTo(this._x, this._y)
 
+        // Trig to calculate position
         let rAngle = Calc.d2r(this._angle + 90)
         let rise = this._y + this._radius * Math.sin(rAngle)
         let run = this._x + this._radius * Math.cos(rAngle)
@@ -81,13 +89,6 @@ export default class Knob extends UIObj {
             this.ctx.strokeStyle = '#19344c'
             this.ctx.stroke()
         }
-
-        // Draw title
-        this.ctx.textBaseline = 'middle'
-        this.ctx.textAlign = 'center'
-        this.ctx.fillStyle = 'white'
-        this.ctx.fillText(this._title, this._x + (this._titleX ? this._titleX : 0), this._y + (this._titleY ? this._titleY : 44))
-        this.ctx.closePath()
     }
 
     hitBox(x, y) {
@@ -125,6 +126,11 @@ export default class Knob extends UIObj {
 
     setRadius(rad) {
         this._radius = rad
+        return this
+    }
+
+    setTitleY(y) {
+        this._titleY = y
         return this
     }
 

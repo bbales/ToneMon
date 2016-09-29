@@ -9,7 +9,7 @@ export default class Label extends UIObj {
         this._align = 'center'
         this._size = size
         this._text = title
-        this.setColor()
+        this._color = '#fff'
     }
 
     draw() {
@@ -23,10 +23,20 @@ export default class Label extends UIObj {
         this.ctx.textBaseline = 'middle'
         this.ctx.textAlign = this._align
         this.ctx.fillStyle = this._color
-        this.ctx.fillText(this._dynamicText ? this._dynamicText() : this._text, this._x, this._y)
+        if (!this._parent)
+            this.ctx.fillText(this._dynamicText ? this._dynamicText() : this._text, this._x, this._y)
+        else
+            this.ctx.fillText(this._dynamicText ? this._dynamicText() : this._text, this._parent._x + this._offsetX, this._parent._y + this._offsetY)
         this.ctx.closePath()
 
         this.ctx.shadowBlur = 0
+    }
+
+    setOffset(parent, x, y) {
+        this._parent = parent
+        this._offsetX = x
+        this._offsetY = y
+        return this
     }
 
     setAlign(align) {
