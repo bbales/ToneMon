@@ -4,24 +4,29 @@ export default class Label extends UIObj {
     constructor(canvas, title = 'text', size = 12) {
         super(canvas)
 
-        // Set to default
-        this._size = size
+        // Set defaults
+        this._blur = 0
         this._align = 'center'
+        this._size = size
         this._text = title
         this.setColor()
     }
 
     draw() {
+        // Dont draw if hidden
         if (this._hidden) return
 
         // Draw title
         this.ctx.beginPath()
+        this.ctx.shadowBlur = this._blur
         this.ctx.font = this._size + 'px Arial'
         this.ctx.textBaseline = 'middle'
         this.ctx.textAlign = this._align
         this.ctx.fillStyle = this._color
-        this.ctx.fillText(this._text, this._x, this._y)
+        this.ctx.fillText(this._dynamicText ? this._dynamicText() : this._text, this._x, this._y)
         this.ctx.closePath()
+
+        this.ctx.shadowBlur = 0
     }
 
     setAlign(align) {
@@ -29,8 +34,18 @@ export default class Label extends UIObj {
         return this
     }
 
+    setBlur(blur) {
+        this._blur = blur
+        return this
+    }
+
     setText(text) {
         this._text = text
+        return this
+    }
+
+    dynamicText(fn) {
+        this._dynamicText = fn
         return this
     }
 
@@ -40,38 +55,17 @@ export default class Label extends UIObj {
     }
 
     setColor(color) {
-        switch (color) {
-            case 'green':
-                this._color1 = 'green'
-                this._color2 = '#c5ffb7'
-                break
-            case 'yellow':
-                this._color1 = '#dcec00'
-                this._color2 = '#fcff95'
-                break
-            case 'orange':
-                this._color1 = 'orange'
-                this._color2 = '#fcff95'
-                break
-            case 'voilet':
-                this._color1 = '#d432d4'
-                this._color2 = '#ffbbf9'
-                break
-            default: // 'red'
-                this._color1 = 'red'
-                this._color2 = '#ff8787'
-                break
-        }
+        this._color = color
         return this
     }
 
     show() {
-        this._hidden = true
+        this._hidden = false
         return this
     }
 
     hide() {
-        this._hidden = false
+        this._hidden = true
         return this
     }
 }

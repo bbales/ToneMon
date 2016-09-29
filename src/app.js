@@ -18,11 +18,12 @@ import Oscilloscope from './ui/oscilloscope'
 import Label from './ui/label'
 
 import Notes from './audio/notes'
-Notes.all
 
 // UI
 var canvas = new Canvas('canvas')
     // var keys = new Keys(canvas).setPos(200, 500)
+
+var label1 = new Label(canvas, 'Hi', 10).setPos(200, 300)
 
 // Audio
 var actx = new window.AudioContext()
@@ -31,7 +32,7 @@ var actx = new window.AudioContext()
 var v1 = new Voice(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(1)
 var v2 = new Voice(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.001).setOctave(3)
 
-var sequencer = new Sequencer().connect(v1).connect(v2).setBPM(200).play()
+var sequencer = new Sequencer().connect(v1).connect(v2).setBPM(200)
 
 sequencer.seq.setNote(0, Notes.note('a5'))
 sequencer.seq.setNote(1, Notes.note('b4'))
@@ -64,7 +65,7 @@ var osc2_octave = new Knobs.OctaveKnob(canvas, v2).setPos(500, 170)
 var osc2_enable = new Switch(canvas, 'OSC2 Enable').setPos(100, 155).change(v => v2.enable(v))
 
 // Sequencer enable
-var seq_enable = new Switch(canvas, 'Seq Enable').setPos(100, 400).change(v => sequencer[v ? 'play' : 'stop']())
+var seq_enable = new Switch(canvas, 'Seq Enable').setPos(100, 400).setDefault(0).change(v => sequencer[v ? 'play' : 'stop']())
 var seq_bpm = new Knob(canvas, 'BPM').setPos(107, 500).setRadius(10).setMinMax(30, 330).change(v => sequencer.setBPM(v * 300))
 seq_bpm._titleY = 22
 

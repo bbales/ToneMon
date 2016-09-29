@@ -1,4 +1,5 @@
 import UIObj from './uiobj'
+import Label from './label'
 import Calc from '../util/calc'
 
 export default class Switch extends UIObj {
@@ -26,6 +27,36 @@ export default class Switch extends UIObj {
                 value: 0
             }
         }
+
+        // Title label
+        this.titleLabel = new Label(canvas, this._t).dynamicText(() => {
+            return this._title
+        })
+
+        // On Label
+        this.onLabel = new Label(canvas).setSize(8).dynamicText(() => {
+            return this._options.on.text
+        })
+
+
+        // Middle Label
+        this.middleLabel = new Label(canvas).setSize(8).dynamicText(() => {
+            return this._options.mid.text
+        })
+
+        // Off Label
+        this.offLabel = new Label(canvas).setSize(8).dynamicText(() => {
+            return this._options.off.text
+        })
+    }
+
+    setPos(x, y) {
+        super.setPos(x, y)
+        this.titleLabel.setPos(this._x + this._width / 2, this._y + 59)
+        this.onLabel.setPos(this._x + this._width + 10, this._y)
+        this.middleLabel.setPos(this._x + this._width + 10, this._y + this._height / 2 + 2)
+        this.offLabel.setPos(this._x + this._width + 10, this._y + this._height + 5)
+        return this
     }
 
     draw() {
@@ -42,37 +73,22 @@ export default class Switch extends UIObj {
         this.ctx.roundRect(this._x, handleY, this._width, this._handleHeight, 3)
         this.ctx.fill()
 
-        // Draw title
-        this.ctx.font = '12px Arial'
-        this.ctx.shadowBlur = 0
-        this.ctx.textAlign = 'center'
-        this.ctx.fillText(this._title, this._x + this._width / 2, this._y + 59)
-        this.ctx.closePath()
-
         // Draw options
         this.ctx.textAlign = 'start'
         this.ctx.font = '8px Arial'
 
         // On
-        this.ctx.fillStyle = this._position == 2 ? '#83d8ff' : 'white'
-        this.ctx.shadowBlur = this._position == 2 ? 10 : 0
-        this.ctx.fillText(this._options.on.text, this._x + this._width + 10, this._y)
-        this.ctx.closePath()
+        this.onLabel.setColor(this._position == 2 ? '#83d8ff' : '#fff').setBlur(this._position == 2 ? 10 : 0)
 
-        // Mid
+        // // Mid
         if (this._numPositions === 3) {
-            this.ctx.fillStyle = this._position == 1 ? '#83d8ff' : 'white'
-            this.ctx.shadowBlur = this._position == 1 ? 10 : 0
-            this.ctx.fillText(this._options.mid.text, this._x + this._width + 10, this._y + this._height / 2 + 2)
-            this.ctx.closePath()
+            this.middleLabel.show().setColor(this._position == 1 ? '#83d8ff' : '#fff').setBlur(this._position == 1 ? 10 : 0)
+        } else {
+            this.middleLabel.hide()
         }
 
         // Off
-        this.ctx.fillStyle = this._position == 0 ? '#83d8ff' : 'white'
-        this.ctx.shadowBlur = this._position == 0 ? 10 : 0
-        this.ctx.fillText(this._options.off.text, this._x + this._width + 10, this._y + this._height + 5)
-        this.ctx.closePath()
-        this.ctx.shadowBlur = 0
+        this.offLabel.setColor(this._position == 0 ? '#83d8ff' : '#fff').setBlur(this._position == 0 ? 10 : 0)
     }
 
     mousemoveHandler(e) {
@@ -102,6 +118,11 @@ export default class Switch extends UIObj {
     change(fn) {
         this._changeFn = fn
         this._changeFn(this.value)
+        return this
+    }
+
+    setDefault(val) {
+        this._position = 0
         return this
     }
 
