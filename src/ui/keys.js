@@ -6,14 +6,13 @@ export default class Keys extends UIObj {
     constructor(canvas) {
         super(canvas)
 
+        // Setup defaults
         this.voices = []
         this.octaveIndex = 3
         this.lineWidth = 1
-
         this._height = 100
         this._width = 500
         this.keyWidth = this._width / 12
-
         this.octaves = Notes.all
     }
 
@@ -60,6 +59,7 @@ export default class Keys extends UIObj {
 
     attach(voice) {
         this.voices.push(voice)
+        return this
     }
 
     detach(voice) {

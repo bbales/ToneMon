@@ -21,7 +21,6 @@ import Notes from './audio/notes'
 
 // UI
 var canvas = new Canvas('canvas')
-    // var keys = new Keys(canvas).setPos(200, 500)
 
 var label1 = new Label(canvas, 'Hi', 10).setPos(200, 300)
 
@@ -36,8 +35,7 @@ var v2 = new Voice(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.00
 let oScope = new Oscilloscope(canvas, actx, [v1, v2]).setPos(600, 80)
 
 // Keys
-// keys.attach(v1)
-// keys.attach(v2)
+// var keys = new Keys(canvas).setPos(200, 500).attach(v2).attach(v1)
 
 // OSC1
 var osc1_shape = new Knobs.ShapeKnob(canvas, v1).setPos(200, 70)
