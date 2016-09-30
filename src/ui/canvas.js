@@ -20,7 +20,7 @@ export default class Canvas {
         setInterval(() => this.redraw(), 1000 / 24)
 
         // Set to default size
-        this.setSize(800, 600)
+        this.setSize(900, 600)
     }
 
     width() {
@@ -38,6 +38,7 @@ export default class Canvas {
 
     mousedownHandler(e) {
         this.objs.map(o => o.mousedownHandler(e))
+        console.log(e.rx, e.ry)
     }
 
     mouseupHandler(e) {

@@ -8,9 +8,9 @@ export default class OctaveKnob extends Knob {
         this.setMinMax(40, 368)
         this.change(value => voice.setOctave(value))
         this.setSnaps([{
-            default: (voice._octave == 0),
-            text: '-3',
-            value: 0
+            default: (voice._octave == -1),
+            text: '-1',
+            value: -3
         }, {
             default: (voice._octave == 1),
             text: '-2',

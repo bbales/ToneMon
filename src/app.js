@@ -16,13 +16,15 @@ import Led from './ui/led'
 import Switch from './ui/switch'
 import Oscilloscope from './ui/oscilloscope'
 import Label from './ui/label'
+import Rectangle from './ui/rectangle'
 
 import Notes from './audio/notes'
 
 // UI
 var canvas = new Canvas('canvas')
 
-var label1 = new Label(canvas, 'Hi', 10).setPos(200, 300)
+var title_label = new Label(canvas, 'ⓉoneⓂon', 27).setPos(810, 50).setAlign('right').setFont('Courier New')
+var title_label = new Label(canvas, 'V0.1', 10).setPos(810, 70).setAlign('right')
 
 // Audio
 var actx = new window.AudioContext()
@@ -32,28 +34,39 @@ var v1 = new Voice(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001)
 var v2 = new Voice(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.001).setOctave(3)
 
 // Create the oscilloscope
-let oScope = new Oscilloscope(canvas, actx, [v1, v2]).setPos(600, 80)
+let oScope = new Oscilloscope(canvas, actx, [v1, v2]).setPos(610, 110)
 
 // Keys
 // var keys = new Keys(canvas).setPos(200, 500).attach(v2).attach(v1)
 
 // OSC1
-var osc1_shape = new Knobs.ShapeKnob(canvas, v1).setPos(200, 70)
-var osc1_atk = new Knobs.AttackKnob(canvas, v1).setPos(300, 70)
-var osc1_rel = new Knobs.ReleaseKnob(canvas, v1).setPos(400, 70)
-var osc1_octave = new Knobs.OctaveKnob(canvas, v1).setPos(500, 70)
-var osc1_enable = new Switch(canvas, 'OSC1 Enable').setPos(100, 55).change(v => {
+let osc1_x = 80
+let osc1_y = 45
+
+var title_label = new Label(canvas, 'OSC 1', 14).setPos(osc1_x, osc1_y).setAlign('left').setColor('#bfbfbf')
+let osc1_rect = new Rectangle(canvas, 490, 105, 5).setPos(osc1_x, osc1_y + 12).setColor('#403c3c')
+var osc1_shape = new Knobs.ShapeKnob(canvas, v1).setPos(osc1_x + 140, osc1_y + 57)
+var osc1_atk = new Knobs.AttackKnob(canvas, v1).setPos(osc1_x + 240, osc1_y + 57)
+var osc1_rel = new Knobs.ReleaseKnob(canvas, v1).setPos(osc1_x + 340, osc1_y + 57)
+var osc1_octave = new Knobs.OctaveKnob(canvas, v1).setPos(osc1_x + 440, osc1_y + 57)
+var osc1_enable = new Switch(canvas, 'OSC1 Enable').setPos(osc1_x + 40, osc1_y + 42).change(v => {
     v1.enable(v)
     let knobs = [osc1_shape, osc1_atk, osc1_rel, osc1_octave]
     knobs.map(o => o[v ? 'enable' : 'disable']())
 })
 
 // OSC2
-var osc2_shape = new Knobs.ShapeKnob(canvas, v2).setPos(200, 170)
-var osc2_atk = new Knobs.AttackKnob(canvas, v2).setPos(300, 170);
-var osc2_rel = new Knobs.ReleaseKnob(canvas, v2).setPos(400, 170);
-var osc2_octave = new Knobs.OctaveKnob(canvas, v2).setPos(500, 170)
-var osc2_enable = new Switch(canvas, 'OSC2 Enable').setPos(100, 155).change(v => {
+
+let osc2_x = 80
+let osc2_y = 185
+
+var title_label = new Label(canvas, 'OSC 2', 14).setPos(osc2_x, osc2_y).setAlign('left').setColor('#bfbfbf')
+let osc2_rect = new Rectangle(canvas, 490, 105, 5).setPos(osc2_x, osc2_y + 12).setColor('#403c3c')
+var osc2_shape = new Knobs.ShapeKnob(canvas, v2).setPos(osc2_x + 140, osc2_y + 57)
+var osc2_atk = new Knobs.AttackKnob(canvas, v2).setPos(osc2_x + 240, osc2_y + 57)
+var osc2_rel = new Knobs.ReleaseKnob(canvas, v2).setPos(osc2_x + 340, osc2_y + 57)
+var osc2_octave = new Knobs.OctaveKnob(canvas, v2).setPos(osc2_x + 440, osc2_y + 57)
+var osc2_enable = new Switch(canvas, 'OSC2 Enable').setPos(osc2_x + 40, osc2_y + 42).change(v => {
     v2.enable(v)
     let knobs = [osc2_shape, osc2_atk, osc2_rel, osc2_octave]
     knobs.map(o => o[v ? 'enable' : 'disable']())

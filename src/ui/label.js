@@ -10,6 +10,7 @@ export default class Label extends UIObj {
         this._size = size
         this._text = title
         this._color = '#fff'
+        this._font = 'Arial'
     }
 
     draw() {
@@ -19,7 +20,7 @@ export default class Label extends UIObj {
         // Draw title
         this.ctx.beginPath()
         this.ctx.shadowBlur = this._blur
-        this.ctx.font = this._size + 'px Arial'
+        this.ctx.font = this._size + 'px ' + this._font
         this.ctx.textBaseline = 'middle'
         this.ctx.textAlign = this._align
         this.ctx.fillStyle = this._color
@@ -51,6 +52,11 @@ export default class Label extends UIObj {
 
     setText(text) {
         this._text = text
+        return this
+    }
+
+    setFont(font) {
+        this._font = font
         return this
     }
 
