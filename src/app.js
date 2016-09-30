@@ -44,14 +44,22 @@ var osc1_shape = new Knobs.ShapeKnob(canvas, v1).setPos(200, 70)
 var osc1_atk = new Knobs.AttackKnob(canvas, v1).setPos(300, 70)
 var osc1_rel = new Knobs.ReleaseKnob(canvas, v1).setPos(400, 70)
 var osc1_octave = new Knobs.OctaveKnob(canvas, v1).setPos(500, 70)
-var osc1_enable = new Switch(canvas, 'OSC1 Enable').setPos(100, 55).change(v => v1.enable(v))
+var osc1_enable = new Switch(canvas, 'OSC1 Enable').setPos(100, 55).change(v => {
+    v1.enable(v)
+    let knobs = [osc1_shape, osc1_atk, osc1_rel, osc1_octave]
+    knobs.map(o => o[v ? 'enable' : 'disable']())
+})
 
 // OSC2
 var osc2_shape = new Knobs.ShapeKnob(canvas, v2).setPos(200, 170)
 var osc2_atk = new Knobs.AttackKnob(canvas, v2).setPos(300, 170);
 var osc2_rel = new Knobs.ReleaseKnob(canvas, v2).setPos(400, 170);
 var osc2_octave = new Knobs.OctaveKnob(canvas, v2).setPos(500, 170)
-var osc2_enable = new Switch(canvas, 'OSC2 Enable').setPos(100, 155).change(v => v2.enable(v))
+var osc2_enable = new Switch(canvas, 'OSC2 Enable').setPos(100, 155).change(v => {
+    v2.enable(v)
+    let knobs = [osc2_shape, osc2_atk, osc2_rel, osc2_octave]
+    knobs.map(o => o[v ? 'enable' : 'disable']())
+})
 
 // Sequencer
 var sequencer = new Sequencer().connect(v1).connect(v2).setBPM(200)

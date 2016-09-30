@@ -27,11 +27,18 @@ export default class Knob extends UIObj {
     }
 
     draw() {
+        // Set up colors based on state
+        let glowColor = this._disabled ? '#2d2d2d' : '#83d8ff'
+        let inactiveGlowColor = this._disabled ? '#2d2d2d' : '#19344c'
+        let whiteColor = this._disabled ? '#3c3c3c' : '#fff'
+
+        this.titleLabel.setColor(whiteColor)
+
         // Draw Circle
         this.ctx.beginPath()
         this.ctx.arc(this._x, this._y, this._radius, 0, 2 * Math.PI)
         this.ctx.lineWidth = this._lineWidth
-        this.ctx.strokeStyle = '#FFF'
+        this.ctx.strokeStyle = whiteColor
         this.ctx.stroke()
         this.ctx.closePath()
 
@@ -53,9 +60,9 @@ export default class Knob extends UIObj {
             this.ctx.font = this._radius < 20 ? '10px Arial' : '12px Arial'
             this.ctx.textBaseline = 'middle'
             this.ctx.textAlign = 'center'
-            this.ctx.shadowColor = '#83d8ff'
+            this.ctx.shadowColor = glowColor
             for (let s of this._snaps) {
-                this.ctx.fillStyle = s.active ? '#83d8ff' : 'white'
+                this.ctx.fillStyle = s.active ? glowColor : whiteColor
                 this.ctx.shadowBlur = s.active ? 10 : 0
                 let safeAngle = Calc.nd2r(s.angle)
                 if (this._radius <= 15) {
@@ -76,9 +83,9 @@ export default class Knob extends UIObj {
             // Draw active arc
             this.ctx.beginPath()
             this.ctx.shadowBlur = 10
-            this.ctx.shadowColor = '#83d8ff'
+            this.ctx.shadowColor = glowColor
             this.ctx.arc(this._x, this._y, this._radius + 5, safeMin, safeCurrent)
-            this.ctx.strokeStyle = '#83d8ff'
+            this.ctx.strokeStyle = glowColor
             this.ctx.stroke()
             this.ctx.closePath()
             this.ctx.shadowBlur = 0
@@ -86,7 +93,7 @@ export default class Knob extends UIObj {
             // Draw remaining inactive arc
             this.ctx.beginPath()
             this.ctx.arc(this._x, this._y, this._radius + 5, safeCurrent, safeMax)
-            this.ctx.strokeStyle = '#19344c'
+            this.ctx.strokeStyle = inactiveGlowColor
             this.ctx.stroke()
         }
     }
@@ -136,6 +143,16 @@ export default class Knob extends UIObj {
 
     change(fn) {
         this._changeFn = fn
+        return this
+    }
+
+    disable() {
+        this._disabled = true
+        return this
+    }
+
+    enable() {
+        this._disabled = false
         return this
     }
 

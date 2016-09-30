@@ -50,5 +50,8 @@ export default class Oscilloscope extends UIObj {
             this.sliceX += this.sliceWidth
         }
         this.ctx.stroke()
+
+        // Reset blur
+        this.ctx.shadowBlur = 0
     }
 }
