@@ -32,7 +32,7 @@ export default class Knob extends UIObj {
         let inactiveGlowColor = this._disabled ? '#2d2d2d' : '#19344c'
         let whiteColor = this._disabled ? '#3c3c3c' : '#fff'
 
-        this.titleLabel.setColor(whiteColor)
+        this.titleLabel.setColor(whiteColor).setOffset(this, 0, this._titleY)
 
         // Draw Circle
         this.ctx.beginPath()

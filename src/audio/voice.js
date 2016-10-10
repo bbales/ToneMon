@@ -14,7 +14,7 @@ export default class Voice extends AudioObj {
         this.vca = this.ctx.createGain()
         this.vca.gain.value = 0
         this.osc.connect(this.vca)
-        this.vca.connect(this.ctx.destination)
+            // this.vca.connect(this.ctx.destination)
 
         // Octave and _transpose properties
         this._octave = 0
@@ -124,6 +124,7 @@ export default class Voice extends AudioObj {
 
     setVolume(volume) {
         this._volume = volume
+        return this
     }
 
     // Attack and release

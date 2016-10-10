@@ -34,6 +34,15 @@ var actx = new window.AudioContext()
 var v1 = new Voice(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(1)
 var v2 = new Voice(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.001).setOctave(3)
 
+// Master volume knob
+var master_gain_node = actx.createGain()
+master_gain_node.connect(actx.destination)
+v1.vca.connect(master_gain_node)
+v2.vca.connect(master_gain_node)
+var master_volume = new Knob(canvas, 'Master').setPos(630, 245).setRadius(10).setTitleY(28).setMinMax(30, 330).change(v => {
+    master_gain_node.gain.value = v
+}).setValue(0.5)
+
 // Create the oscilloscope
 let oScope = new Oscilloscope(canvas, actx, [v1, v2]).setPos(610, 110)
 
@@ -61,7 +70,7 @@ sequencer.seq.setNote(7, Notes.note('a4'))
 
 // Sequencer enable
 var seq_enable = new Switch(canvas, 'Seq Enable').setPos(100, 400).setDefault(0).change(v => sequencer[v ? 'play' : 'stop']())
-var seq_bpm = new Knob(canvas, 'BPM').setPos(107, 500).setRadius(10).setTitleY(22).setMinMax(30, 330).change(v => sequencer.setBPM(v * 300))
+var seq_bpm = new Knob(canvas, 'BPM').setPos(680, 245).setRadius(10).setTitleY(28).setMinMax(30, 330).change(v => sequencer.setBPM(v * 300))
 
 // LEDs
 var colors = ['red', 'green', 'yellow', 'violet', 'orange'];

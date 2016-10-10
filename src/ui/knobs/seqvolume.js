@@ -11,5 +11,7 @@ export default class SequencerVolumeKnob extends Knob {
         this.change(v => {
             sequencer.seq.setVolume(step, v)
         })
+
+        this.setValue(0.75)
     }
 }
