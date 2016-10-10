@@ -48,10 +48,13 @@ export default class Sequencer {
     // Move current step pointer to next available step
     _advanceSeq() {
         let note = this.seq.getNote(this._currentStep)
+        let volume = this.seq.getVolume(this._currentStep)
+
         if (note && this._prevNote && note.freq !== this._prevNote.freq) this._voices.map(o => o.stop())
         if (note) {
-            this._voices.map(o => o.setNote(note))
-            this._voices.map(o => o.play())
+            this._voices.map(v => v.setNote(note))
+            this._voices.map(v => v.setVolume(volume))
+            this._voices.map(v => v.play())
         }
 
         if (++this._currentStep >= this._length) this._currentStep = 0

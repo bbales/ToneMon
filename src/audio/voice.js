@@ -20,6 +20,7 @@ export default class Voice extends AudioObj {
         this._octave = 0
         this._transpose = 0
 
+        this._volume = 1;
         this._attack = 0;
         this._release = 0;
         this._note = {
@@ -72,7 +73,7 @@ export default class Voice extends AudioObj {
         // Attack
         this.vca.gain.cancelScheduledValues(this.ctx.currentTime - 1);
         this.vca.gain.linearRampToValueAtTime(this._enabled * 0.0005, this.ctx.currentTime)
-        this.vca.gain.linearRampToValueAtTime(this._enabled * 0.5, this.ctx.currentTime + 0.03 + this._attack)
+        this.vca.gain.linearRampToValueAtTime(this._enabled * this._volume * 0.5, this.ctx.currentTime + 0.03 + this._attack)
     }
 
     stop() {
@@ -117,6 +118,12 @@ export default class Voice extends AudioObj {
 
     downTranspose() {
         this._transpose = _.clamp(this._transpose - 1, -11, 12)
+    }
+
+    // Volume
+
+    setVolume(volume) {
+        this._volume = volume
     }
 
     // Attack and release
