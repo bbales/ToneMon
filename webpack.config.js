@@ -21,7 +21,7 @@ module.exports = {
 
     // spit out bundled code; set where it "mounts"
     output: {
-        path: PATHS.dist,
+        // path: PATHS.dist,
         publicPath: '/',
         filename: 'bundle.js'
     },
