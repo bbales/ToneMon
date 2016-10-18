@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "7d3e176e24503e5dc08d"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "9b8d2ec1b16adf753e80"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -585,8 +585,6 @@
 
 	'use strict';
 
-	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./styles/main.scss\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
 	var _lodash = __webpack_require__(6);
 
 	var _lodash2 = _interopRequireDefault(_lodash);
@@ -653,8 +651,8 @@
 
 
 	// Local deps
-	// CSS
-	var canvas = new _canvas2.default('canvas');
+	var canvas = new _canvas2.default('canvas'); // CSS
+	// import './styles/main.scss'
 
 	// External deps
 
