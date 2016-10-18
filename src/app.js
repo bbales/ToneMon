@@ -18,7 +18,6 @@ import Oscilloscope from './ui/oscilloscope'
 import Label from './ui/label'
 import Rectangle from './ui/rectangle'
 import Oscillator from './ui/oscillator'
-
 import Notes from './audio/notes'
 
 // UI
