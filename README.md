@@ -4,6 +4,8 @@ This project was created as a fun way to explore the new WebAudio API, it has be
 tested on chrome in its current state. The implementation takes advantage of many ES6 constructs such as
 imports and classes.
 
+![ToneMon Pic](http://i.imgur.com/Bjg7WkE.png)
+
 #### App-level Dependencies
 
 Currently the only app level dependency is [lodash](https://lodash.com/), which is used for easy array/collection manipulation.
