@@ -6,7 +6,7 @@ const Dashboard = require('webpack-dashboard/plugin')
 // paths to our code
 const PATHS = {
     app: './src/app.js',
-    html: './src/index.html',
+    html: './index.html',
     style: './src/styles/main.scss',
     dist: path.join(__dirname, 'dist')
 };
@@ -32,26 +32,21 @@ module.exports = {
     },
 
     module: {
-        loaders: [
-            {
-                test: /\.html$/,
-                loader: "file?name=[name].[ext]"
-            },
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loaders: ['babel-loader']
-            },
-            {
-                test: /\.scss$/,
-                loaders: ['style', 'css', 'sass']
-            },
-            {
-                test: /\.(jpg|png)$/,
-                loader: "file?name=[path][name].[ext]"
-            }
-        ]
+        loaders: [{
+            test: /\.html$/,
+            loader: "file?name=[name].[ext]"
+        }, {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loaders: ['babel-loader']
+        }, {
+            test: /\.scss$/,
+            loaders: ['style', 'css', 'sass']
+        }, {
+            test: /\.(jpg|png)$/,
+            loader: "file?name=[path][name].[ext]"
+        }]
     },
-    
-    plugins: [ new Dashboard()]
+
+    plugins: [new Dashboard()]
 }
