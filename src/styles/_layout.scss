@@ -1,12 +1,11 @@
 body{
     margin: 0 0;
     height:900px;
-    // overflow:hidden;
     background-color: black;
     -webkit-user-select: none;
 
     canvas{
         z-index:5;
-        position:fixed;
+        position:absolute;
     }
 }

@@ -121,9 +121,10 @@
 
 	var title_label = new _label2.default(canvas, 'ⓉoneⓂon', 27).setPos(810, 50).setAlign('right').setFont('Courier New');
 	var version_label = new _label2.default(canvas, 'V0.1', 10).setPos(810, 70).setAlign('right');
-	console.log(title_label);
+
 	// Audio
-	var actx = new window.AudioContext();
+	var AudioContext = window.AudioContext || window.webkitAudioContext;
+	var actx = new AudioContext();
 
 	// Synth voice(s)
 	var v1 = new _voice2.default(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(1);
@@ -219,7 +220,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n  margin: 0 0;\n  height: 900px;\n  background-color: black;\n  -webkit-user-select: none; }\n  body canvas {\n    z-index: 5;\n    position: fixed; }\n\n#synth {\n  position: relative;\n  width: 900px;\n  height: 650px;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: 10vh;\n  display: block;\n  padding: 10px; }\n  #synth background, #synth background-img {\n    position: absolute;\n    z-index: 1;\n    width: inherit;\n    height: 640px;\n    margin: 0 7px; }\n  #synth background-img {\n    z-index: 2;\n    background-image: url(" + __webpack_require__(4) + ");\n    background-size: 100vw 900px;\n    opacity: 0.5; }\n  #synth wood-panel {\n    position: absolute;\n    z-index: 3;\n    width: 50px;\n    height: inherit;\n    background-image: url(" + __webpack_require__(5) + ");\n    background-size: 600% 200%;\n    box-shadow: 0px 0px 10px #101010;\n    border-radius: 2px; }\n    #synth wood-panel:last-of-type {\n      right: 0px; }\n    #synth wood-panel:first-of-type {\n      left: 0px; }\n", ""]);
+	exports.push([module.id, "body {\n  margin: 0 0;\n  height: 900px;\n  background-color: black;\n  -webkit-user-select: none; }\n  body canvas {\n    z-index: 5;\n    position: absolute; }\n\n#synth {\n  position: relative;\n  width: 900px;\n  height: 650px;\n  margin-left: auto;\n  margin-right: auto;\n  margin-top: 10vh;\n  display: block;\n  padding: 10px; }\n  #synth background, #synth background-img {\n    position: absolute;\n    z-index: 1;\n    width: inherit;\n    height: 640px;\n    margin: 0 7px; }\n  #synth background-img {\n    z-index: 2;\n    background-image: url(" + __webpack_require__(4) + ");\n    background-size: 100vw 900px;\n    opacity: 0.5; }\n  #synth wood-panel {\n    position: absolute;\n    z-index: 3;\n    width: 50px;\n    height: inherit;\n    background-image: url(" + __webpack_require__(5) + ");\n    background-size: 600% 200%;\n    box-shadow: 0px 0px 10px #101010;\n    border-radius: 2px; }\n    #synth wood-panel:last-of-type {\n      right: 0px; }\n    #synth wood-panel:first-of-type {\n      left: 0px; }\n", ""]);
 
 	// exports
 
@@ -17660,14 +17661,12 @@
 	// Canvas offset coordinates
 	Object.defineProperty(MouseEvent.prototype, 'rx', {
 	    get: function get() {
-	        return this.pageX - this.target.offsetLeft;
-	        //- this.target.offsetParent.offsetLeft
+	        return this.pageX - this.target.offsetLeft - this.target.offsetParent.offsetLeft;
 	    }
 	});
 	Object.defineProperty(MouseEvent.prototype, 'ry', {
 	    get: function get() {
-	        return this.pageY - this.target.offsetTop;
-	        //- this.target.offsetParent.offsetTop
+	        return this.pageY - this.target.offsetTop - this.target.offsetParent.offsetTop;
 	    }
 	});
 
@@ -19030,8 +19029,7 @@
 	    }, {
 	        key: 'redraw',
 	        value: function redraw() {
-	            console.log('called');
-	            // this.ctx.clearRect(0, 0, this.elem.width, this.elem.height)
+	            this.ctx.clearRect(0, 0, this.elem.width, this.elem.height);
 	            this.objs.forEach(function (o) {
 	                return o.draw();
 	            });

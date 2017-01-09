@@ -49,8 +49,7 @@ export default class Canvas {
     }
 
     redraw() {
-        console.log('called')
-            // this.ctx.clearRect(0, 0, this.elem.width, this.elem.height)
+        this.ctx.clearRect(0, 0, this.elem.width, this.elem.height)
         this.objs.forEach(o => o.draw())
     }
 }

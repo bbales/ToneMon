@@ -24,9 +24,10 @@ import Notes from './audio/notes'
 let canvas = new Canvas('canvas')
 let title_label = new Label(canvas, 'ⓉoneⓂon', 27).setPos(810, 50).setAlign('right').setFont('Courier New')
 let version_label = new Label(canvas, 'V0.1', 10).setPos(810, 70).setAlign('right')
-console.log(title_label)
-    // Audio
-let actx = new window.AudioContext()
+
+// Audio
+let AudioContext = window.AudioContext || window.webkitAudioContext;
+let actx = new AudioContext()
 
 // Synth voice(s)
 let v1 = new Voice(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(1)
