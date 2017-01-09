@@ -44,6 +44,7 @@ export default class Notes {
             octave = parseInt(str[str.length - 1])
             str = str.substring(0, str.length - 1)
         }
+
         let note = _.find(_noteArray[octave], {
             'note': str
         })

@@ -119,31 +119,30 @@
 
 	// External deps
 
-	var title_label = new _label2.default(canvas, 'ⓉoneⓂon', 27).setPos(810, 50).setAlign('right').setFont('Courier New');
-	var version_label = new _label2.default(canvas, 'V0.1', 10).setPos(810, 70).setAlign('right');
+	new _label2.default(canvas, 'ⓉoneⓂon', 27).setPos(810, 50).setAlign('right').setFont('Courier New');
+	new _label2.default(canvas, 'V0.1', 10).setPos(810, 70).setAlign('right');
 
-	// Audio
-	var AudioContext = window.AudioContext || window.webkitAudioContext;
-	var actx = new AudioContext();
-
-	// Synth voice(s)
-	var v1 = new _voice2.default(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(1);
-	var v2 = new _voice2.default(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.001).setOctave(3);
+	// Audio with webkit shim
+	var actx = new (window.AudioContext || window.webkitAudioContext)();
 
 	// Master volume knob
 	var master_gain_node = actx.createGain();
 	master_gain_node.connect(actx.destination);
-	v1.vca.connect(master_gain_node);
-	v2.vca.connect(master_gain_node);
-	var master_volume = new _knob2.default(canvas, 'Master').setPos(630, 245).setRadius(10).setTitleY(28).setMinMax(30, 330).change(function (v) {
+	new _knob2.default(canvas, 'Master').setPos(630, 245).setRadius(10).setTitleY(28).setMinMax(30, 330).change(function (v) {
 	    return master_gain_node.gain.value = v;
 	}).setValue(0.5);
+
+	// Synth voice(s)
+	var v1 = new _voice2.default(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(1);
+	v1.vca.connect(master_gain_node);
+	var v2 = new _voice2.default(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.001).setOctave(3);
+	v2.vca.connect(master_gain_node);
 
 	// Create the oscilloscope
 	var oScope = new _oscilloscope2.default(canvas, actx, [v1, v2]).setPos(610, 110);
 
 	// Keys
-	// var keys = new Keys(canvas).setPos(200, 500).attach(v2).attach(v1)
+	// let keys = new Keys(canvas).setPos(200, 500).attach(v2).attach(v1)
 
 	// OSC1
 	var osc1 = new _oscillator2.default(canvas, v1, 'OSC1').setPos(80, 45);
@@ -165,22 +164,18 @@
 	sequencer.seq.setNote(7, _notes2.default.note('a4'));
 
 	// Sequencer enable
-	var seq_enable = new _switch2.default(canvas, 'Seq Enable').setPos(100, 400).setDefault(0).change(function (v) {
+	new _switch2.default(canvas, 'Seq Enable').setPos(100, 400).setDefault(0).change(function (v) {
 	    return sequencer[v ? 'play' : 'stop']();
 	});
-	var seq_bpm = new _knob2.default(canvas, 'BPM').setPos(680, 245).setRadius(10).setTitleY(28).setMinMax(30, 330).change(function (v) {
+	new _knob2.default(canvas, 'BPM').setPos(680, 245).setRadius(10).setTitleY(28).setMinMax(30, 330).change(function (v) {
 	    return sequencer.setBPM(v * 300);
 	});
 
 	// LEDs
-	var colors = ['red', 'green', 'yellow', 'violet', 'orange'];
 	_lodash2.default.times(8, function (i) {
-	    var led1 = new _led2.default(canvas).setPos(200 + 65 * i, 410).setColor('red');
-	    var volume_knob = new Knobs.SequencerVolumeKnob(canvas, sequencer, i).setPos(200 + 65 * i, 550);
-	    var note_knob = new Knobs.SequencerNoteKnob(canvas, sequencer, i, 5).setPos(200 + 65 * i, 475);
-
-	    // Assign check function
-	    led1.check(function () {
+	    new Knobs.SequencerVolumeKnob(canvas, sequencer, i).setPos(200 + 65 * i, 550);
+	    new Knobs.SequencerNoteKnob(canvas, sequencer, i, 5).setPos(200 + 65 * i, 475);
+	    new _led2.default(canvas).setPos(200 + 65 * i, 410).setColor('red').check(function () {
 	        return sequencer._currentStep == i;
 	    });
 	});
@@ -18821,6 +18816,7 @@
 	                octave = parseInt(str[str.length - 1]);
 	                str = str.substring(0, str.length - 1);
 	            }
+
 	            var note = _.find(_noteArray[octave], {
 	                'note': str
 	            });
@@ -19459,7 +19455,7 @@
 	        key: 'stop',
 	        value: function stop() {
 	            clearInterval(this._interval);
-	            this._voices.map(function (o) {
+	            this._voices.forEach(function (o) {
 	                return o.stop();
 	            });
 	            return this;
@@ -19473,17 +19469,17 @@
 	            var note = this.seq.getNote(this._currentStep);
 	            var volume = this.seq.getVolume(this._currentStep);
 
-	            if (note && this._prevNote && note.freq !== this._prevNote.freq) this._voices.map(function (o) {
+	            if (note && this._prevNote && note.freq !== this._prevNote.freq) this._voices.forEach(function (o) {
 	                return o.stop();
 	            });
 	            if (note) {
-	                this._voices.map(function (v) {
+	                this._voices.forEach(function (v) {
 	                    return v.setNote(note);
 	                });
-	                this._voices.map(function (v) {
+	                this._voices.forEach(function (v) {
 	                    return v.setVolume(volume);
 	                });
-	                this._voices.map(function (v) {
+	                this._voices.forEach(function (v) {
 	                    return v.play();
 	                });
 	            }
@@ -19522,7 +19518,7 @@
 	        _classCallCheck(this, Sequence);
 
 	        this._length = len;
-	        for (this._data = []; this._data.push([]) < this._length;) {}
+	        for (this._data = []; this._data.push([]) < len;) {}
 	    }
 
 	    // Set note at step in sequence
@@ -20168,7 +20164,7 @@
 	        this._enable = new _switch2.default(canvas, this._title + ' Enable').change(function (v) {
 	            _this._voice.enable(v);
 	            var knobs = [_this._shape, _this._atk, _this._rel, _this._octave];
-	            knobs.map(function (o) {
+	            knobs.forEach(function (o) {
 	                return o[v ? 'enable' : 'disable']();
 	            });
 	        });

@@ -15,9 +15,7 @@ export default class Knob extends UIObj {
         this._titleY = 44
 
         // Title label
-        this.titleLabel = new Label(canvas).setColor('#fff').setOffset(this, 0, this._titleY).dynamicText(() => {
-            return this._title
-        })
+        this.titleLabel = new Label(canvas).setColor('#fff').setOffset(this, 0, this._titleY).dynamicText(() => this._title)
     }
 
     init() {

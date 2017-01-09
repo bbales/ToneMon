@@ -43,7 +43,7 @@ export default class Keys extends UIObj {
     mousedownHandler(e) {
         // Dont do anything if the click is not in the hit-box
         if (!this.hitBox(e.rx, e.ry)) return
-        this.playNote();
+        this.playNote()
         this.mousemoveHandler(e)
     }
 
@@ -54,7 +54,7 @@ export default class Keys extends UIObj {
 
     resetKeys() {
         // Reset keys active states
-        Tool.setAll(this.octave, 'active', false);
+        Tool.setAll(this.octave, 'active', false)
     }
 
     attach(voice) {
@@ -85,7 +85,7 @@ export default class Keys extends UIObj {
     // Octave
 
     get octave() {
-        return this.octaves[this.octaveIndex];
+        return this.octaves[this.octaveIndex]
     }
 
     setOctave(oct) {

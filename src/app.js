@@ -22,29 +22,28 @@ import Notes from './audio/notes'
 
 // UI
 let canvas = new Canvas('canvas')
-let title_label = new Label(canvas, 'ⓉoneⓂon', 27).setPos(810, 50).setAlign('right').setFont('Courier New')
-let version_label = new Label(canvas, 'V0.1', 10).setPos(810, 70).setAlign('right')
+new Label(canvas, 'ⓉoneⓂon', 27).setPos(810, 50).setAlign('right').setFont('Courier New')
+new Label(canvas, 'V0.1', 10).setPos(810, 70).setAlign('right')
 
-// Audio
-let AudioContext = window.AudioContext || window.webkitAudioContext;
-let actx = new AudioContext()
-
-// Synth voice(s)
-let v1 = new Voice(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(1)
-let v2 = new Voice(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.001).setOctave(3)
+// Audio with webkit shim
+let actx = new(window.AudioContext || window.webkitAudioContext)
 
 // Master volume knob
 let master_gain_node = actx.createGain()
 master_gain_node.connect(actx.destination)
+new Knob(canvas, 'Master').setPos(630, 245).setRadius(10).setTitleY(28).setMinMax(30, 330).change(v => master_gain_node.gain.value = v).setValue(0.5)
+
+// Synth voice(s)
+let v1 = new Voice(actx, 'OSC1').setWave('sine').setFreqEnvelope('tween', 0.001).setOctave(1)
 v1.vca.connect(master_gain_node)
+let v2 = new Voice(actx, 'OSC2').setWave('square').setFreqEnvelope('tween', 0.001).setOctave(3)
 v2.vca.connect(master_gain_node)
-let master_volume = new Knob(canvas, 'Master').setPos(630, 245).setRadius(10).setTitleY(28).setMinMax(30, 330).change(v => master_gain_node.gain.value = v).setValue(0.5)
 
 // Create the oscilloscope
 let oScope = new Oscilloscope(canvas, actx, [v1, v2]).setPos(610, 110)
 
 // Keys
-// var keys = new Keys(canvas).setPos(200, 500).attach(v2).attach(v1)
+// let keys = new Keys(canvas).setPos(200, 500).attach(v2).attach(v1)
 
 // OSC1
 let osc1 = new Oscillator(canvas, v1, 'OSC1').setPos(80, 45)
@@ -66,16 +65,12 @@ sequencer.seq.setNote(6, Notes.note('g5'))
 sequencer.seq.setNote(7, Notes.note('a4'))
 
 // Sequencer enable
-let seq_enable = new Switch(canvas, 'Seq Enable').setPos(100, 400).setDefault(0).change(v => sequencer[v ? 'play' : 'stop']())
-let seq_bpm = new Knob(canvas, 'BPM').setPos(680, 245).setRadius(10).setTitleY(28).setMinMax(30, 330).change(v => sequencer.setBPM(v * 300))
+new Switch(canvas, 'Seq Enable').setPos(100, 400).setDefault(0).change(v => sequencer[v ? 'play' : 'stop']())
+new Knob(canvas, 'BPM').setPos(680, 245).setRadius(10).setTitleY(28).setMinMax(30, 330).change(v => sequencer.setBPM(v * 300))
 
 // LEDs
-let colors = ['red', 'green', 'yellow', 'violet', 'orange'];
-_.times(8, (i) => {
-    let led1 = new Led(canvas).setPos(200 + 65 * i, 410).setColor('red')
-    let volume_knob = new Knobs.SequencerVolumeKnob(canvas, sequencer, i).setPos(200 + 65 * i, 550)
-    let note_knob = new Knobs.SequencerNoteKnob(canvas, sequencer, i, 5).setPos(200 + 65 * i, 475)
-
-    // Assign check function
-    led1.check(() => sequencer._currentStep == i)
+_.times(8, i => {
+    new Knobs.SequencerVolumeKnob(canvas, sequencer, i).setPos(200 + 65 * i, 550)
+    new Knobs.SequencerNoteKnob(canvas, sequencer, i, 5).setPos(200 + 65 * i, 475)
+    new Led(canvas).setPos(200 + 65 * i, 410).setColor('red').check(() => sequencer._currentStep == i)
 })

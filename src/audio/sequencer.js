@@ -41,7 +41,7 @@ export default class Sequencer {
     // Stop sequencer
     stop() {
         clearInterval(this._interval)
-        this._voices.map(o => o.stop())
+        this._voices.forEach(o => o.stop())
         return this
     }
 
@@ -50,11 +50,11 @@ export default class Sequencer {
         let note = this.seq.getNote(this._currentStep)
         let volume = this.seq.getVolume(this._currentStep)
 
-        if (note && this._prevNote && note.freq !== this._prevNote.freq) this._voices.map(o => o.stop())
+        if (note && this._prevNote && note.freq !== this._prevNote.freq) this._voices.forEach(o => o.stop())
         if (note) {
-            this._voices.map(v => v.setNote(note))
-            this._voices.map(v => v.setVolume(volume))
-            this._voices.map(v => v.play())
+            this._voices.forEach(v => v.setNote(note))
+            this._voices.forEach(v => v.setVolume(volume))
+            this._voices.forEach(v => v.play())
         }
 
         if (++this._currentStep >= this._length) this._currentStep = 0
@@ -63,7 +63,7 @@ export default class Sequencer {
 
     // Set the current sequence
     setSequence(num) {
-        this._currentSequenceNum = num;
+        this._currentSequenceNum = num
         if (!_.isObject(this._seq[num])) this._seq[num] = new Sequence(this._length)
         return this
     }
@@ -78,7 +78,7 @@ export default class Sequencer {
 class Sequence {
     constructor(len) {
         this._length = len
-        for (this._data = []; this._data.push([]) < this._length;);
+        for (this._data = []; this._data.push([]) < len;);
     }
 
     // Set note at step in sequence

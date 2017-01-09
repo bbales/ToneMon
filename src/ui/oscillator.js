@@ -21,7 +21,7 @@ export default class Oscillator {
         this._enable = new Switch(canvas, this._title + ' Enable').change(v => {
             this._voice.enable(v)
             let knobs = [this._shape, this._atk, this._rel, this._octave]
-            knobs.map(o => o[v ? 'enable' : 'disable']())
+            knobs.forEach(o => o[v ? 'enable' : 'disable']())
         })
     }
 
