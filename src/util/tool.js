@@ -1,8 +1,7 @@
 import _ from 'lodash'
 
 export default class Tool {
-    static id(len) {
-        len = _.isUndefined(len) ? 5 : len
+    static id(len = 5) {
         return Math.random().toString(36).substring(len)
     }
 

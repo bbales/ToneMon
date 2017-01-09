@@ -18232,8 +18232,9 @@
 
 	    _createClass(Tool, null, [{
 	        key: 'id',
-	        value: function id(len) {
-	            len = _lodash2.default.isUndefined(len) ? 5 : len;
+	        value: function id() {
+	            var len = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
+
 	            return Math.random().toString(36).substring(len);
 	        }
 	    }, {
