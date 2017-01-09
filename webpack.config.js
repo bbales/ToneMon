@@ -8,7 +8,7 @@ const PATHS = {
     app: './src/app.js',
     html: './index.html',
     style: './src/styles/main.scss',
-    dist: path.join(__dirname, 'dist')
+    dist: path.join(__dirname, '')
 };
 
 module.exports = {
@@ -16,13 +16,12 @@ module.exports = {
     entry: {
         javascript: PATHS.app,
         html: PATHS.html,
-        css: PATHS.style
     },
 
     // spit out bundled code; set where it "mounts"
     output: {
         // path: PATHS.dist,
-        publicPath: '/',
+        publicPath: '',
         filename: 'bundle.js'
     },
 
@@ -41,7 +40,7 @@ module.exports = {
             loaders: ['babel-loader']
         }, {
             test: /\.scss$/,
-            loaders: ['style', 'css', 'sass']
+            loaders: ["style-loader", "css-loader", "sass-loader"]
         }, {
             test: /\.(jpg|png)$/,
             loader: "file?name=[path][name].[ext]"

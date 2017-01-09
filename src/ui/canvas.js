@@ -17,7 +17,7 @@ export default class Canvas {
         window.addEventListener('mouseup', e => this.mouseupHandler(e))
 
         // Start draw loop
-        setInterval(() => this.redraw(), 1000 / 24)
+        setInterval(() => this.redraw(), 1000 / 1)
 
         // Set to default size
         this.setSize(900, 600)
@@ -37,20 +37,20 @@ export default class Canvas {
     }
 
     mousedownHandler(e) {
-        this.objs.map(o => o.mousedownHandler(e))
-        console.log(e.rx, e.ry)
+        this.objs.forEach(o => o.mousedownHandler(e))
     }
 
     mouseupHandler(e) {
-        this.objs.map(o => o.mouseupHandler(e))
+        this.objs.forEach(o => o.mouseupHandler(e))
     }
 
     mousemoveHandler(e) {
-        this.objs.map(o => o.mousemoveHandler(e))
+        this.objs.forEach(o => o.mousemoveHandler(e))
     }
 
     redraw() {
-        this.ctx.clearRect(0, 0, this.elem.width, this.elem.height)
-        this.objs.map(e => e.draw())
+        console.log('called')
+            // this.ctx.clearRect(0, 0, this.elem.width, this.elem.height)
+        this.objs.forEach(o => o.draw())
     }
 }

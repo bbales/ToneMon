@@ -1,4 +1,4 @@
-synth{
+#synth{
     position:relative;
     width:900px;
     height:650px;
@@ -9,7 +9,7 @@ synth{
     padding:10px;
 
     background{
-        position:fixed;
+        position:absolute;
         z-index:1;
         width:inherit;
         height:640px;

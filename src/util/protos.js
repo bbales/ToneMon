@@ -1,12 +1,14 @@
 // Canvas offset coordinates
 Object.defineProperty(MouseEvent.prototype, 'rx', {
-    'get': function() {
-        return this.pageX - this.target.offsetLeft - this.target.offsetParent.offsetLeft
+    get: function() {
+        return this.pageX - this.target.offsetLeft
+            //- this.target.offsetParent.offsetLeft
     }
 })
 Object.defineProperty(MouseEvent.prototype, 'ry', {
-    'get': function() {
-        return this.pageY - this.target.offsetTop - this.target.offsetParent.offsetTop
+    get: function() {
+        return this.pageY - this.target.offsetTop
+            //- this.target.offsetParent.offsetTop
     }
 })
 

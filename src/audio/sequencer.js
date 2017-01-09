@@ -83,7 +83,6 @@ class Sequence {
 
     // Set note at step in sequence
     setNote(step, note) {
-        console.log(step)
         this._data[step].note = note
     }
 
